@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Trilobyte
 {
-	class TerrainSpot
+	public class TerrainSpot
 	{
 		public List<Entity> Occupants = new List<Entity>();
 
@@ -14,7 +14,6 @@ namespace Trilobyte
 		{
 			get
 			{
-
 				return Occupants[Occupants.Count - 1].Display;
 			}
 		}

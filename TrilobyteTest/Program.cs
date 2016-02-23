@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Trilobyte;
 
-namespace Trilobyte
+namespace TrilobyteTest
 {
 	class Program
 	{
@@ -13,6 +11,7 @@ namespace Trilobyte
 			var CurrentTerrain = new Terrain(' ', 32, 32);
 
 			CurrentTerrain.Add(new PlayerEntity(1, 1));
+
 			CurrentTerrain.Add(new WallEntity(16, 16));
 			CurrentTerrain.Add(new WallEntity(17, 16));
 			CurrentTerrain.Add(new WallEntity(18, 16));
@@ -21,7 +20,7 @@ namespace Trilobyte
 
 			CurrentTerrain.Add(new WallEntity(16, 20));
 			CurrentTerrain.Add(new WallEntity(17, 20));
-			//CurrentTerrain.Add(new DoorEntity(18, 20));
+			CurrentTerrain.Add(new DoorEntity(18, 20)); // <---
 			CurrentTerrain.Add(new WallEntity(19, 20));
 			CurrentTerrain.Add(new WallEntity(20, 20));
 
@@ -32,14 +31,18 @@ namespace Trilobyte
 			CurrentTerrain.Add(new WallEntity(20, 18));
 			CurrentTerrain.Add(new WallEntity(20, 19));
 
-			Console.BackgroundColor = ConsoleColor.DarkCyan;
-			Console.ForegroundColor = ConsoleColor.Black;
+			CurrentTerrain.Add(new KeyItem(21, 6));
+
+			Console.WindowHeight = 35;
+			Console.BackgroundColor = ConsoleColor.DarkGreen;
+			Console.ForegroundColor = ConsoleColor.White;
 
 			while (true)
 			{
 				Console.Clear();
 				Console.WriteLine(CurrentTerrain.WriteField(32, 32, 0, 0));
 
+				Console.Write(">:{{{)");
 				var input = Console.ReadKey().KeyChar.ToString();
 
 				CurrentTerrain.Update(new string[] { input });
@@ -47,7 +50,8 @@ namespace Trilobyte
 		}
 	}
 
-
-
-
+	public static class MainPlayer
+	{
+		public static List<Entity> Inventory = new List<Entity>();
+	}
 }

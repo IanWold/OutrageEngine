@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Trilobyte
 {
-	class Entity
+	public class Entity
 	{
 		public char Display { get; protected set; }
 

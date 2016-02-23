@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trilobyte", "Trilobyte\Trilobyte.csproj", "{AD39991D-80A8-4A4B-A4C3-E12A1A3CF7E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrilobyteTest", "TrilobyteTest\TrilobyteTest.csproj", "{AD39991D-80A8-4A4B-A4C3-E12A1A3CF7E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trilobyte", "Trilobyte\Trilobyte.csproj", "{E092B687-6835-4927-BAE4-5422B13F6536}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{AD39991D-80A8-4A4B-A4C3-E12A1A3CF7E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD39991D-80A8-4A4B-A4C3-E12A1A3CF7E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD39991D-80A8-4A4B-A4C3-E12A1A3CF7E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E092B687-6835-4927-BAE4-5422B13F6536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E092B687-6835-4927-BAE4-5422B13F6536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E092B687-6835-4927-BAE4-5422B13F6536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E092B687-6835-4927-BAE4-5422B13F6536}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Trilobyte
 {
-	class Terrain
+	public class Terrain
 	{
 		Dictionary<Tuple<int, int>, TerrainSpot> Field = new Dictionary<Tuple<int, int>, TerrainSpot>();
 
@@ -49,6 +49,24 @@ namespace Trilobyte
 			}
 		}
 
+		public void RemoveEntity(Entity other)
+		{
+			var toRemove = from spot in Field
+						   from ent in spot.Value.Occupants
+						   where ent == other
+						   select spot;
+
+			foreach (var s in toRemove)
+			{
+				s.Value.Occupants.Remove(other);
+
+				if (s.Value.Occupants.Count == 0)
+				{
+					Field.Remove(s.Key);
+				}
+			}
+		}
+
 		public Terrain(char emptyDisplay, int width, int height)
 		{
 			EmptyDisplay = emptyDisplay;
@@ -82,53 +100,63 @@ namespace Trilobyte
 
 		public void MoveEntity(Entity toMove, int x, int y)
 		{
-			if (x < 0 || y < 0 || x > Width || y > Height) return;
-
-			toMove.Environment = this;
-
-			TerrainSpot outSpot;
-			var key = new Tuple<int, int>(x, y);
-
-			if (Field.TryGetValue(key, out outSpot))
+			try
 			{
-				bool allowed = true;
+				if (x < 0 || y < 0 || x > Width || y > Height) return;
 
-				foreach (var o in outSpot.Occupants)
+				toMove.Environment = this;
+
+				TerrainSpot oldSpot;
+				TerrainSpot newSpot;
+				var key = new Tuple<int, int>(x, y);
+
+				if (Field.TryGetValue(key, out newSpot))
 				{
-					allowed = o.OnCollidedWith(toMove) && toMove.OnCollidedWith(o);
-					if (!allowed) break;
-				}
+					bool allowed = true;
 
-				if (allowed)
+					foreach (var o in newSpot.Occupants)
+					{
+						var callee = o.OnCollidedWith(toMove);
+						var caller = toMove.OnCollidedWith(o);
+						allowed = callee && caller;
+						if (!allowed) break;
+					}
+
+					if (allowed)
+					{
+						var oldKey = new Tuple<int, int>(toMove.X, toMove.Y);
+						Field.TryGetValue(oldKey, out oldSpot);
+						oldSpot.Occupants.Remove(toMove);
+
+						if (oldSpot.Occupants.Count == 0)
+						{
+							Field.Remove(oldKey);
+						}
+
+						toMove.X = x;
+						toMove.Y = y;
+						newSpot.Occupants.Add(toMove);
+					}
+				}
+				else
 				{
 					var oldKey = new Tuple<int, int>(toMove.X, toMove.Y);
-					Field.TryGetValue(oldKey, out outSpot);
-					outSpot.Occupants.Remove(toMove);
+					Field.TryGetValue(oldKey, out oldSpot);
+					oldSpot.Occupants.Remove(toMove);
 
-					if (outSpot.Occupants.Count == 0)
+					if (oldSpot.Occupants.Count == 0)
 					{
 						Field.Remove(oldKey);
 					}
 
 					toMove.X = x;
 					toMove.Y = y;
-					outSpot.Occupants.Add(toMove);
+					Field.Add(key, new TerrainSpot(toMove));
 				}
 			}
-			else
+			catch (Exception ex)
 			{
-				var oldKey = new Tuple<int, int>(toMove.X, toMove.Y);
-				Field.TryGetValue(oldKey, out outSpot);
-				outSpot.Occupants.Remove(toMove);
 
-				if (outSpot.Occupants.Count == 0)
-				{
-					Field.Remove(oldKey);
-				}
-
-				toMove.X = x;
-				toMove.Y = y;
-				Field.Add(key, new TerrainSpot(toMove));
 			}
 		}
 
