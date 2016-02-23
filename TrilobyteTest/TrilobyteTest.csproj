@@ -7,8 +7,8 @@
     <ProjectGuid>{AD39991D-80A8-4A4B-A4C3-E12A1A3CF7E5}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Trilobyte</RootNamespace>
-    <AssemblyName>Trilobyte</AssemblyName>
+    <RootNamespace>TrilobyteTest</RootNamespace>
+    <AssemblyName>TrilobyteTest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
