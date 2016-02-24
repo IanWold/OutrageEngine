@@ -19,12 +19,19 @@ namespace TrilobyteTest
 			}
 		}
 
-		public DoorEntity(int x, int y) : base('_', x, y) { }
-		
-		
-		public override bool OnCollidedWith(Entity other)
+		public DoorEntity(int x, int y)
 		{
-			return !IsLocked;
+			Display = '_';
+			X = x;
+			Y = y;
+
+			OnCollidedWith += DoorEntity_OnCollidedWith;
+		}
+
+
+		private void DoorEntity_OnCollidedWith(object sender, CollidedWithEventArgs e)
+		{
+			e.Cancel = IsLocked;
 		}
 	}
 }

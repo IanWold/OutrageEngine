@@ -4,11 +4,18 @@ namespace TrilobyteTest
 {
 	class WallEntity : Entity
 	{
-		public WallEntity(int x, int y) : base('■', x, y) { }
-
-		public override bool OnCollidedWith(Entity other)
+		public WallEntity(int x, int y)
 		{
-			return false;
+			Display = '■';
+			X = x;
+			Y = y;
+
+			OnCollidedWith += WallEntity_OnCollidedWith;
+		}
+
+		private void WallEntity_OnCollidedWith(object sender, CollidedWithEventArgs e)
+		{
+			e.Cancel = true;
 		}
 	}
 }

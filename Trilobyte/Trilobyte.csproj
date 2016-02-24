@@ -40,7 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\EmptyEntity.cs" />
+    <Compile Include="Event Handlers\CollidedWithEventArgs.cs" />
     <Compile Include="Entity\Entity.cs" />
+    <Compile Include="Event Handlers\EntityAppearedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Terrain\Terrain.cs" />
     <Compile Include="Terrain\TerrainSpot.cs" />

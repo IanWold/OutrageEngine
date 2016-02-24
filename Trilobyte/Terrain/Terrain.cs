@@ -31,7 +31,7 @@ namespace Trilobyte
 				{
 					return outSpot;
 				}
-				else return new TerrainSpot(new Entity(EmptyDisplay, x, y));
+				else return new TerrainSpot(new EmptyEntity(EmptyDisplay, x, y));
 			}
 			private set
 			{
@@ -87,7 +87,7 @@ namespace Trilobyte
 
 				foreach (var o in outSpot.Occupants)
 				{
-					allowed = o.OnEntityAppeared(toAdd);
+					allowed &= !o.AppearEntity(toAdd, new EntityAppearedEventArgs());
 				}
 
 				if (allowed) outSpot.Occupants.Add(toAdd);
@@ -116,9 +116,9 @@ namespace Trilobyte
 
 					foreach (var o in newSpot.Occupants)
 					{
-						var callee = o.OnCollidedWith(toMove);
-						var caller = toMove.OnCollidedWith(o);
-						allowed = callee && caller;
+						var callee = o.CollideWith(toMove, new CollidedWithEventArgs());
+						var caller = toMove.CollideWith(o, new CollidedWithEventArgs());
+						allowed = !callee && !caller;
 						if (!allowed) break;
 					}
 

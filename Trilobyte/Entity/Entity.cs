@@ -1,31 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Trilobyte
 {
 	public class Entity
 	{
-		public char Display { get; protected set; }
-
+		public char Display { get; set; }
 		public int X { get; set; }
-
 		public int Y { get; set; }
-
 		public Terrain Environment { get; set; }
 
-		public Entity(char display, int x, int y)
-		{
-			Display = display;
+		public virtual void Update(string[] args) { }
 
-			X = x;
-			Y = y;
+		public delegate void CollidedWithEventHandler(object sender, CollidedWithEventArgs e);
+		public event CollidedWithEventHandler OnCollidedWith;
+
+		public delegate void EntityAppearedEventHandler(object sender, EntityAppearedEventArgs e);
+		public event EntityAppearedEventHandler OnEntityAppeared;
+
+		public bool CollideWith(object sender, CollidedWithEventArgs e)
+		{
+			if (OnCollidedWith != null)
+			{
+				OnCollidedWith(sender, e);
+			}
+
+			return e.Cancel;
 		}
 
-		public virtual void Update(string[] args) { }
-		public virtual bool OnCollidedWith(Entity other) { return true; }
-		public virtual bool OnEntityAppeared(Entity other) { return true; }
+		public bool AppearEntity(object sender, EntityAppearedEventArgs e)
+		{
+			if (OnEntityAppeared != null)
+			{
+				OnEntityAppeared(sender, e);
+			}
+
+			return e.Cancel;
+		}
 	}
 }

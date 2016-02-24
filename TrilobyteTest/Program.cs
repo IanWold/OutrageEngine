@@ -36,6 +36,7 @@ namespace TrilobyteTest
 			Console.WindowHeight = 35;
 			Console.BackgroundColor = ConsoleColor.DarkGreen;
 			Console.ForegroundColor = ConsoleColor.White;
+			Console.Title = "Trilobyte Test Game";
 
 			while (true)
 			{

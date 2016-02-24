@@ -16,7 +16,14 @@ namespace TrilobyteTest
 			}
 		}
 
-		public PlayerEntity(int x, int y) : base('☺', x, y) { }
+		public PlayerEntity(int x, int y)
+		{
+			Display = '☺';
+			X = x;
+			Y = y;
+
+			OnCollidedWith += PlayerEntity_OnCollidedWith;
+		}
 
 		public override void Update(string[] args)
 		{
@@ -52,19 +59,32 @@ namespace TrilobyteTest
 			}
 		}
 
-		public override bool OnCollidedWith(Entity other)
+		private void PlayerEntity_OnCollidedWith(object sender, CollidedWithEventArgs e)
 		{
-			if (other.GetType() == typeof(KeyItem))
+			if (sender.GetType() == typeof(KeyItem))
 			{
-				MainPlayer.Inventory.Add(other);
-				Environment.RemoveEntity(other);
+				MainPlayer.Inventory.Add(sender as KeyItem);
+				Environment.RemoveEntity(sender as KeyItem);
 			}
-			if (other.GetType() == typeof(DoorEntity) && HasKey)
+			if (sender.GetType() == typeof(DoorEntity) && HasKey)
 			{
-				(other as DoorEntity).IsLocked = !(other as DoorEntity).IsLocked;
+				(sender as DoorEntity).IsLocked = !(sender as DoorEntity).IsLocked;
 			}
-
-			return true;
 		}
+
+		//public override bool OnCollidedWith(Entity other)
+		//{
+		//	if (other.GetType() == typeof(KeyItem))
+		//	{
+		//		MainPlayer.Inventory.Add(other);
+		//		Environment.RemoveEntity(other);
+		//	}
+		//	if (other.GetType() == typeof(DoorEntity) && HasKey)
+		//	{
+		//		(other as DoorEntity).IsLocked = !(other as DoorEntity).IsLocked;
+		//	}
+
+		//	return true;
+		//}
 	}
 }
