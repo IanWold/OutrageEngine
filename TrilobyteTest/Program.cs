@@ -27,36 +27,16 @@ namespace TrilobyteTest
 				new Camera(new Vector(0, 0), new Vector(32, 32)));
 
 			PopulateFirstScene();
-			FirstScene.OnUpdate += FirstScene_OnUpdate;
 
 			SecondScene = new Scene(
 				new DictionaryTerrainManager(' ', new Vector(32, 32)),
 				new Camera(new Vector(0, 0), new Vector(32, 32)));
 
 			PopulateSecondScene();
-			SecondScene.OnUpdate += SecondScene_OnUpdate;
-		}
-
-		private static void SecondScene_OnUpdate(object sender, UpdateEventArgs e)
-		{
-			//if (e.Key == ConsoleKey.RightArrow)
-			//{
-			//	GameLoop.ChangeScene(FirstScene);
-			//}
-		}
-
-		private static void FirstScene_OnUpdate(object sender, UpdateEventArgs e)
-		{
-			//if (e.Key == ConsoleKey.LeftArrow)
-			//{
-			//	GameLoop.ChangeScene(SecondScene);
-			//}
 		}
 
 		private static void PopulateSecondScene()
 		{
-			SecondScene.Terrain.Add(new PlayerEntity(), new Vector(12, 12));
-
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(10, 10));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(11, 10));
 			SecondScene.Terrain.Add(new DoorEntity(), new Vector(12, 10)); // <---

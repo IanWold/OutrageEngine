@@ -14,7 +14,9 @@ namespace TrilobyteTest
 		{
 			if (e.Caller.GetType() == typeof(PlayerEntity))
 			{
+				Program.SecondScene.Terrain.Add(e.Caller, new Vector(12, 12));
 				GameLoop.ChangeScene(Program.SecondScene);
+				ParentScene.Terrain.Remove(e.Caller);
 			}
 		}
 	}
