@@ -1,14 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using Trilobyte;
 
 namespace TrilobyteTest
 {
 	class Program
 	{
+		static Terrain CurrentTerrain;
+
 		static void Main(string[] args)
 		{
-			var CurrentTerrain = new Terrain(' ', 32, 32);
+			InitializeGame();
+			GameLoop.Begin(CurrentTerrain);
+		}
+
+		static void InitializeGame()
+		{
+			Console.WindowHeight = Console.BufferHeight = 35;
+			Console.WindowWidth = Console.BufferWidth = 70;
+			Console.BackgroundColor = ConsoleColor.DarkGreen;
+			Console.ForegroundColor = ConsoleColor.White;
+			Console.Title = "Trilobyte Test Game";
+
+			CurrentTerrain = new Terrain(' ', 32, 32);
 
 			CurrentTerrain.Add(new PlayerEntity(1, 1));
 
@@ -32,39 +45,6 @@ namespace TrilobyteTest
 			CurrentTerrain.Add(new WallEntity(20, 19));
 
 			CurrentTerrain.Add(new KeyItem(21, 6));
-
-			Console.WindowHeight = 35;
-			Console.BackgroundColor = ConsoleColor.DarkGreen;
-			Console.ForegroundColor = ConsoleColor.White;
-			Console.Title = "Trilobyte Test Game";
-
-			while (true)
-			{
-				Console.Clear();
-				Console.WriteLine(CurrentTerrain.WriteField(32, 32, 0, 0));
-
-				Console.Write(">:{{{)");
-				var input = Console.ReadKey().Key;
-
-				CurrentTerrain.Update(new UpdateEventArgs(input));
-			}
-		}
-	}
-
-	public static class MainPlayer
-	{
-		public static List<Entity> Inventory = new List<Entity>();
-
-		public static bool InventoryHasKey
-		{
-			get
-			{
-				foreach (var i in Inventory)
-				{
-					if (i.GetType() == typeof(KeyItem)) return true;
-				}
-				return false;
-			}
 		}
 	}
 }
