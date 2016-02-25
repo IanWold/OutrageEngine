@@ -1,4 +1,20 @@
 Trilobyte
 =========
 
-I'm making a game engine for console ASCII games. It's in the very early prototype now, but the name is 100% final. No idea what work needs to go into it, I'll figure that as I go.
+I'm making a game engine for console ASCII games. It's in the very early prototype now, but the name is 100% final.
+
+Work to be done
+---------------
+
+Here is some of the work that needs to go into the alpha version:
+
+* Levels/Scenes
+* Abstractify the Terrain
+	* Create a few terrain management options
+* Use a "camera" to write the field
+* Menu system
+* Optimize it
+* Create a samples library of pre-made assets
+* Create a template for VS
+* Write the docs
+* Finish a sample game showing off everything
