@@ -18,7 +18,7 @@ namespace TrilobyteTest
 			if (e.Caller.GetType() == typeof(PlayerEntity))
 			{
 				MainPlayer.Inventory.Add(this);
-				Environment.RemoveEntity(this);
+				Environment.Remove(this);
 			}
 		}
 	}

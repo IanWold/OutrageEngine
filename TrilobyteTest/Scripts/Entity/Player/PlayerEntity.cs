@@ -19,19 +19,19 @@ namespace TrilobyteTest
 			switch (e.Key)
 			{
 				case ConsoleKey.W:
-					Environment.MoveEntity(this, X, Y - 1);
+					Environment.Move(this, X, Y - 1);
 					break;
 
 				case ConsoleKey.S:
-					Environment.MoveEntity(this, X, Y + 1);
+					Environment.Move(this, X, Y + 1);
 					break;
 
 				case ConsoleKey.A:
-					Environment.MoveEntity(this, X - 1, Y);
+					Environment.Move(this, X - 1, Y);
 					break;
 
 				case ConsoleKey.D:
-					Environment.MoveEntity(this, X + 1, Y);
+					Environment.Move(this, X + 1, Y);
 					break;
 
 				case ConsoleKey.E:

@@ -4,17 +4,18 @@ namespace Trilobyte
 {
 	public static class GameLoop
 	{
-		public static void Begin(Terrain CurrentTerrain)
+		public static void Begin(IScene CurrentScene)
 		{
 			while (true)
 			{
 				Console.Clear();
-				Console.WriteLine(CurrentTerrain.WriteField(32, 32, 0, 0));
+				//Console.WriteLine(CurrentScene.Write());
+				Console.WriteLine(CurrentScene.Write());
 
 				Console.Write(">:{{{)");
 				var input = Console.ReadKey().Key;
 
-				CurrentTerrain.Update(new UpdateEventArgs(input));
+				CurrentScene.Update(new UpdateEventArgs(input));
 			}
 		}
 	}

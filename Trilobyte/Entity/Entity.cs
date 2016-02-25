@@ -4,7 +4,7 @@
 	{
 		public char Display { get; set; }
 
-		public Terrain Environment { get; set; }
+		public DictionaryTerrain Environment { get; set; }
 
 		public int X { get; set; }
 

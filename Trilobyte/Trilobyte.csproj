@@ -40,15 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera\Camera.cs" />
     <Compile Include="Entity\EmptyEntity.cs" />
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Event Handlers\CollisionEventArgs.cs" />
     <Compile Include="Event Handlers\UpdateEventArgs.cs" />
     <Compile Include="GameLoop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Terrain\Terrain.cs" />
+    <Compile Include="Scene\IScene.cs" />
+    <Compile Include="Scene\Scene.cs" />
+    <Compile Include="Terrain\ITerrainManager.cs" />
+    <Compile Include="Terrain\DictionaryTerrain.cs" />
     <Compile Include="Terrain\TerrainSpot.cs" />
+    <Compile Include="Vector\Vector.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

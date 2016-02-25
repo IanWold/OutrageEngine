@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Trilobyte
 {
-	public class Terrain
+	public class DictionaryTerrain : ITerrainManager
 	{
 		Dictionary<Tuple<int, int>, TerrainSpot> Field { get; set; }
 
@@ -47,7 +47,7 @@ namespace Trilobyte
 			}
 		}
 
-		public void RemoveEntity(Entity other)
+		public void Remove(Entity other)
 		{
 			var toRemove = from spot in Field
 						   from ent in spot.Value.Occupants
@@ -65,7 +65,7 @@ namespace Trilobyte
 			}
 		}
 
-		public Terrain(char emptyDisplay, int width, int height)
+		public DictionaryTerrain(char emptyDisplay, int width, int height)
 		{
 			Field = new Dictionary<Tuple<int, int>, TerrainSpot>();
 
@@ -98,7 +98,7 @@ namespace Trilobyte
 			}
 		}
 
-		public void MoveEntity(Entity toMove, int x, int y)
+		public void Move(Entity toMove, int x, int y)
 		{
 			try
 			{
@@ -172,23 +172,23 @@ namespace Trilobyte
 				e.Update(args);
 		}
 
-		public string WriteField(int width, int height, int _x, int _y)
-		{
-			var toReturn = "";
+		//public string WriteField(int width, int height, int _x, int _y)
+		//{
+		//	var toReturn = "";
 
-			for (int y = _y; y <= height; y++)
-			{
-				var row = "";
+		//	for (int y = _y; y <= height; y++)
+		//	{
+		//		var row = "";
 
-				for (int x = _x; x <= width; x++)
-				{
-					row += this[x, y].Display.ToString() + " ";
-				}
+		//		for (int x = _x; x <= width; x++)
+		//		{
+		//			row += this[x, y].Display.ToString() + " ";
+		//		}
 
-				toReturn += row + "\r\n";
-			}
+		//		toReturn += row + "\r\n";
+		//	}
 
-			return toReturn;
-		}
+		//	return toReturn;
+		//}
 	}
 }
