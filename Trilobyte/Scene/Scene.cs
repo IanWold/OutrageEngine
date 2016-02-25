@@ -30,6 +30,9 @@
 			}
 		}
 
+		public delegate void OnUpdateEventHandler(object sender, UpdateEventArgs e);
+		public event OnUpdateEventHandler OnUpdate;
+
 		public Scene(ITerrainManager terrain, Camera fieldCamera)
 		{
 			Terrain = terrain;
@@ -44,6 +47,7 @@
 		public void Update(UpdateEventArgs e)
 		{
 			Terrain.Update(e);
+			if (OnUpdate != null) OnUpdate(this, e);
 		}
 	}
 }

@@ -4,8 +4,12 @@ namespace Trilobyte
 {
 	public static class GameLoop
 	{
-		public static void Begin(IScene CurrentScene)
+		static IScene CurrentScene;
+
+		public static void Begin(IScene startingScene)
 		{
+			CurrentScene = startingScene;
+
 			while (true)
 			{
 				Console.Clear();
@@ -17,6 +21,11 @@ namespace Trilobyte
 
 				CurrentScene.Update(new UpdateEventArgs(input));
 			}
+		}
+
+		public static void ChangeScene(IScene newScene)
+		{
+			CurrentScene = newScene;
 		}
 	}
 }

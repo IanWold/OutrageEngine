@@ -164,6 +164,11 @@ namespace Trilobyte
 			}
 		}
 
+		public void Clear()
+		{
+			Field.Clear();
+		}
+
 		public void Update(UpdateEventArgs args)
 		{
 			List<Entity> entities = new List<Entity>();

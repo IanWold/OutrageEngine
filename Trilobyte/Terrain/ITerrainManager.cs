@@ -8,6 +8,8 @@
 
 		void Remove(Entity toRemove);
 
+		void Clear();
+
 		TerrainSpot this[int x, int y] { get; }
 
 		IScene ParentScene { get; set; }
