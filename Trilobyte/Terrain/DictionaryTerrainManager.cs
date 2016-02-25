@@ -30,15 +30,13 @@ namespace Trilobyte
 
 		public char EmptyDisplay { get; set; }
 
-		public int Height { get; set; }
-
-		public int Width { get; set; }
+		public Vector Size { get; private set; }
 
 		public TerrainSpot this[int x, int y]
 		{
 			get
 			{
-				if (x > Width || x < 0 || y > Height || y < 0)
+				if (x > Size.X || x < 0 || y > Size.Y || y < 0)
 				{
 					throw new ArgumentOutOfRangeException("Not cool.");
 				}
@@ -53,7 +51,7 @@ namespace Trilobyte
 			}
 			private set
 			{
-				if (x > Width || x < 0 || y > Height || y < 0)
+				if (x > Size.X || x < 0 || y > Size.Y || y < 0)
 				{
 					throw new ArgumentOutOfRangeException("Not cool.");
 				}
@@ -85,13 +83,12 @@ namespace Trilobyte
 			}
 		}
 
-		public DictionaryTerrainManager(char emptyDisplay, int width, int height)
+		public DictionaryTerrainManager(char emptyDisplay, Vector size)
 		{
 			Field = new Dictionary<Vector, TerrainSpot>();
 
 			EmptyDisplay = emptyDisplay;
-			Width = width;
-			Height = height;
+			Size = size;
 		}
 
 		public void Add(Entity toAdd, Vector location)
@@ -108,7 +105,7 @@ namespace Trilobyte
 		{
 			try
 			{
-				if (location.X < 0 || location.Y < 0 || location.X > Width || location.Y > Height) return;
+				if (location.X < 0 || location.Y < 0 || location.X > Size.X || location.Y > Size.Y) return;
 
 				TerrainSpot oldSpot;
 				TerrainSpot newSpot;

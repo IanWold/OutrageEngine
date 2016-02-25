@@ -21,7 +21,7 @@ namespace TrilobyteTest
 			Console.BackgroundColor = ConsoleColor.DarkGreen;
 			Console.ForegroundColor = ConsoleColor.White;
 			
-			var CurrentTerrain = new DictionaryTerrainManager(' ', 32, 32);
+			var CurrentTerrain = new DictionaryTerrainManager(' ', new Vector(32, 32));
 
 			CurrentTerrain.Add(new PlayerEntity(), new Vector(1, 1));
 
