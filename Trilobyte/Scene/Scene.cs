@@ -2,9 +2,21 @@
 {
 	public class Scene : IScene
 	{
-		public ITerrainManager Terrain { get; set; }
+		ITerrainManager _Terrain;
+		public ITerrainManager Terrain
+		{
+			get
+			{
+				return _Terrain;
+			}
+			set
+			{
+				_Terrain = value;
+				_Terrain.ParentScene = this;
+			}
+		}
 
-		private Camera _FieldCamera;
+		Camera _FieldCamera;
 		public Camera FieldCamera
 		{
 			get

@@ -6,16 +6,13 @@
 
 		public Entity Caller { get; set; }
 
-		public int X { get; set; }
+		public Vector Position { get; set; }
 
-		public int Y { get; set; }
-
-		public CollisionEventArgs(Entity c, int x, int y)
+		public CollisionEventArgs(Entity c, Vector position)
 		{
 			Cancel = false;
 			Caller = c;
-			X = x;
-			Y = y;
+			Position = position;
 		}
 	}
 }

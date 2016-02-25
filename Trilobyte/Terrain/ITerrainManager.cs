@@ -1,18 +1,15 @@
 ﻿namespace Trilobyte
 {
-	public interface ITerrainManager
+	public interface ITerrainManager : IUpdatable
 	{
-		void Add(Entity toAdd);
+		void Add(Entity toAdd, Vector location);
 
-		void Move(Entity toMove, int x, int y);
+		void Move(Entity toMove, Vector location);
 
 		void Remove(Entity toRemove);
 
-		void Update(UpdateEventArgs e);
-
 		TerrainSpot this[int x, int y] { get; }
 
-		//REMOVE THIS SOMETIME SOON
-		//string WriteField(int a, int b, int c, int d);
+		IScene ParentScene { get; set; }
 	}
 }

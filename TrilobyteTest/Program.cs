@@ -21,30 +21,30 @@ namespace TrilobyteTest
 			Console.BackgroundColor = ConsoleColor.DarkGreen;
 			Console.ForegroundColor = ConsoleColor.White;
 			
-			var CurrentTerrain = new DictionaryTerrain(' ', 32, 32);
+			var CurrentTerrain = new DictionaryTerrainManager(' ', 32, 32);
 
-			CurrentTerrain.Add(new PlayerEntity(1, 1));
+			CurrentTerrain.Add(new PlayerEntity(), new Vector(1, 1));
 
-			CurrentTerrain.Add(new WallEntity(16, 16));
-			CurrentTerrain.Add(new WallEntity(17, 16));
-			CurrentTerrain.Add(new WallEntity(18, 16));
-			CurrentTerrain.Add(new WallEntity(19, 16));
-			CurrentTerrain.Add(new WallEntity(20, 16));
+			CurrentTerrain.Add(new WallEntity(), new Vector(16, 16));
+			CurrentTerrain.Add(new WallEntity(), new Vector(17, 16));
+			CurrentTerrain.Add(new WallEntity(), new Vector(18, 16));
+			CurrentTerrain.Add(new WallEntity(), new Vector(19, 16));
+			CurrentTerrain.Add(new WallEntity(), new Vector(20, 16));
 
-			CurrentTerrain.Add(new WallEntity(16, 20));
-			CurrentTerrain.Add(new WallEntity(17, 20));
-			CurrentTerrain.Add(new DoorEntity(18, 20)); // <---
-			CurrentTerrain.Add(new WallEntity(19, 20));
-			CurrentTerrain.Add(new WallEntity(20, 20));
+			CurrentTerrain.Add(new WallEntity(), new Vector(16, 20));
+			CurrentTerrain.Add(new WallEntity(), new Vector(17, 20));
+			CurrentTerrain.Add(new DoorEntity(), new Vector(18, 20)); // <---
+			CurrentTerrain.Add(new WallEntity(), new Vector(19, 20));
+			CurrentTerrain.Add(new WallEntity(), new Vector(20, 20));
 
-			CurrentTerrain.Add(new WallEntity(16, 17));
-			CurrentTerrain.Add(new WallEntity(16, 18));
-			CurrentTerrain.Add(new WallEntity(16, 19));
-			CurrentTerrain.Add(new WallEntity(20, 17));
-			CurrentTerrain.Add(new WallEntity(20, 18));
-			CurrentTerrain.Add(new WallEntity(20, 19));
+			CurrentTerrain.Add(new WallEntity(), new Vector(16, 17));
+			CurrentTerrain.Add(new WallEntity(), new Vector(16, 18));
+			CurrentTerrain.Add(new WallEntity(), new Vector(16, 19));
+			CurrentTerrain.Add(new WallEntity(), new Vector(20, 17));
+			CurrentTerrain.Add(new WallEntity(), new Vector(20, 18));
+			CurrentTerrain.Add(new WallEntity(), new Vector(20, 19));
 
-			CurrentTerrain.Add(new KeyItem(21, 6));
+			CurrentTerrain.Add(new KeyItem(), new Vector(21, 6));
 
 			Camera MainCam = new Camera(new Vector(0, 0), new Vector(32, 32));
 

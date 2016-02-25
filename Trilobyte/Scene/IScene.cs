@@ -1,11 +1,7 @@
 ﻿namespace Trilobyte
 {
-	public interface IScene
+	public interface IScene : IUpdatable, IWriteable
 	{
 		ITerrainManager Terrain { get; set; }
-
-		void Update(UpdateEventArgs e);
-
-		string Write();
 	}
 }

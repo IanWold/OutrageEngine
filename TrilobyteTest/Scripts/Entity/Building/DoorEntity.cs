@@ -18,11 +18,9 @@ namespace TrilobyteTest
 			}
 		}
 
-		public DoorEntity(int x, int y)
+		public DoorEntity()
 		{
 			Display = '_';
-			X = x;
-			Y = y;
 
 			OnCollidedWith += DoorEntity_OnCollidedWith;
 		}

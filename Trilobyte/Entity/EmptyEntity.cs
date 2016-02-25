@@ -8,11 +8,10 @@ namespace Trilobyte
 {
 	class EmptyEntity : Entity
 	{
-		public EmptyEntity(char c, int x, int y)
+		public EmptyEntity(char c, Vector position)
 		{
 			Display = c;
-			X = x;
-			Y = y;
+			Position = position;
 		}
 	}
 }

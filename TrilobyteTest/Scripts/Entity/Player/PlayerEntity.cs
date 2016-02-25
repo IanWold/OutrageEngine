@@ -5,11 +5,9 @@ namespace TrilobyteTest
 {
 	class PlayerEntity : Entity
 	{
-		public PlayerEntity(int x, int y)
+		public PlayerEntity()
 		{
 			Display = '☺';
-			X = x;
-			Y = y;
 
 			OnUpdate += PlayerEntity_OnUpdate;
 		}
@@ -19,19 +17,19 @@ namespace TrilobyteTest
 			switch (e.Key)
 			{
 				case ConsoleKey.W:
-					Environment.Move(this, X, Y - 1);
+					ParentScene.Terrain.Move(this, new Vector(Position.X, Position.Y - 1));
 					break;
 
 				case ConsoleKey.S:
-					Environment.Move(this, X, Y + 1);
+					ParentScene.Terrain.Move(this, new Vector(Position.X, Position.Y + 1));
 					break;
 
 				case ConsoleKey.A:
-					Environment.Move(this, X - 1, Y);
+					ParentScene.Terrain.Move(this, new Vector(Position.X - 1, Position.Y));
 					break;
 
 				case ConsoleKey.D:
-					Environment.Move(this, X + 1, Y);
+					ParentScene.Terrain.Move(this, new Vector(Position.X + 1, Position.Y));
 					break;
 
 				case ConsoleKey.E:
@@ -39,9 +37,7 @@ namespace TrilobyteTest
 
 					foreach (var i in MainPlayer.Inventory)
 					{
-						i.X = X;
-						i.Y = Y;
-						Environment.Add(i);
+						ParentScene.Terrain.Add(i, Position);
 					}
 
 					MainPlayer.Inventory.Clear();

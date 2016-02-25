@@ -1,14 +1,12 @@
 ﻿namespace Trilobyte
 {
-	public class Entity
+	public class Entity : IUpdatable
 	{
 		public char Display { get; set; }
 
-		public DictionaryTerrain Environment { get; set; }
+		public IScene ParentScene { get; set; }
 
-		public int X { get; set; }
-
-		public int Y { get; set; }
+		public Vector Position;
 
 		public delegate void OnUpdateEventHandler(UpdateEventArgs e);
 		public event OnUpdateEventHandler OnUpdate;
@@ -35,7 +33,7 @@
 			return e.Cancel;
 		}
 
-		internal void Update(UpdateEventArgs e)
+		public void Update(UpdateEventArgs e)
 		{
 			if (OnUpdate == null) return;
 			OnUpdate(e);

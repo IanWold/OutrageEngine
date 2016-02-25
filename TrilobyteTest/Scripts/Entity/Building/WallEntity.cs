@@ -4,11 +4,9 @@ namespace TrilobyteTest
 {
 	class WallEntity : Entity
 	{
-		public WallEntity(int x, int y)
+		public WallEntity()
 		{
 			Display = '■';
-			X = x;
-			Y = y;
 
 			OnCollidedWith += WallEntity_OnCollidedWith;
 		}

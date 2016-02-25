@@ -4,11 +4,9 @@ namespace TrilobyteTest
 {
 	class KeyItem : Entity
 	{
-		public KeyItem(int x, int y)
+		public KeyItem()
 		{
 			Display = '.';
-			X = x;
-			Y = y;
 
 			OnCollidedWith += KeyItem_OnCollidedWith;
 		}
@@ -18,7 +16,7 @@ namespace TrilobyteTest
 			if (e.Caller.GetType() == typeof(PlayerEntity))
 			{
 				MainPlayer.Inventory.Add(this);
-				Environment.Remove(this);
+				ParentScene.Terrain.Remove(this);
 			}
 		}
 	}
