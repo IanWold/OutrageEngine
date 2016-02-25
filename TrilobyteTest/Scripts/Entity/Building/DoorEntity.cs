@@ -14,8 +14,7 @@ namespace TrilobyteTest
 			set
 			{
 				_IsLocked = value;
-				if (value) Display = '_';
-				else Display = '/';
+				Display = value ? '_' : '/';
 			}
 		}
 
@@ -29,8 +28,13 @@ namespace TrilobyteTest
 		}
 
 
-		private void DoorEntity_OnCollidedWith(object sender, CollidedWithEventArgs e)
+		private void DoorEntity_OnCollidedWith(object sender, CollisionEventArgs e)
 		{
+			if (e.Caller.GetType() == typeof(PlayerEntity) && MainPlayer.InventoryHasKey)
+			{
+				IsLocked = false;
+			}
+
 			e.Cancel = IsLocked;
 		}
 	}

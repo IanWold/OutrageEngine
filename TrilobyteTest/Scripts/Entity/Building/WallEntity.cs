@@ -13,7 +13,7 @@ namespace TrilobyteTest
 			OnCollidedWith += WallEntity_OnCollidedWith;
 		}
 
-		private void WallEntity_OnCollidedWith(object sender, CollidedWithEventArgs e)
+		private void WallEntity_OnCollidedWith(object sender, CollisionEventArgs e)
 		{
 			e.Cancel = true;
 		}

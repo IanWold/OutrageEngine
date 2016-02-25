@@ -44,9 +44,9 @@ namespace TrilobyteTest
 				Console.WriteLine(CurrentTerrain.WriteField(32, 32, 0, 0));
 
 				Console.Write(">:{{{)");
-				var input = Console.ReadKey().KeyChar.ToString();
+				var input = Console.ReadKey().Key;
 
-				CurrentTerrain.Update(new string[] { input });
+				CurrentTerrain.Update(new UpdateEventArgs(input));
 			}
 		}
 	}
@@ -54,5 +54,17 @@ namespace TrilobyteTest
 	public static class MainPlayer
 	{
 		public static List<Entity> Inventory = new List<Entity>();
+
+		public static bool InventoryHasKey
+		{
+			get
+			{
+				foreach (var i in Inventory)
+				{
+					if (i.GetType() == typeof(KeyItem)) return true;
+				}
+				return false;
+			}
+		}
 	}
 }

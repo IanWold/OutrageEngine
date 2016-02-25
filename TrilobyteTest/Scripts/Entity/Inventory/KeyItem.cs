@@ -9,6 +9,17 @@ namespace TrilobyteTest
 			Display = '.';
 			X = x;
 			Y = y;
+
+			OnCollidedWith += KeyItem_OnCollidedWith;
+		}
+
+		private void KeyItem_OnCollidedWith(object sender, CollisionEventArgs e)
+		{
+			if (e.Caller.GetType() == typeof(PlayerEntity))
+			{
+				MainPlayer.Inventory.Add(this);
+				Environment.RemoveEntity(this);
+			}
 		}
 	}
 }

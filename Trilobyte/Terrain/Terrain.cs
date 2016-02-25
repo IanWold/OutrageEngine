@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Trilobyte
 {
 	public class Terrain
 	{
-		Dictionary<Tuple<int, int>, TerrainSpot> Field = new Dictionary<Tuple<int, int>, TerrainSpot>();
+		Dictionary<Tuple<int, int>, TerrainSpot> Field { get; set; }
 
-		public char EmptyDisplay;
+		public char EmptyDisplay { get; set; }
 
-		public int Height;
+		public int Height { get; set; }
 
-		public int Width;
+		public int Width { get; set; }
 
 		public TerrainSpot this[int x, int y]
 		{
@@ -69,6 +67,8 @@ namespace Trilobyte
 
 		public Terrain(char emptyDisplay, int width, int height)
 		{
+			Field = new Dictionary<Tuple<int, int>, TerrainSpot>();
+
 			EmptyDisplay = emptyDisplay;
 			Width = width;
 			Height = height;
@@ -87,7 +87,7 @@ namespace Trilobyte
 
 				foreach (var o in outSpot.Occupants)
 				{
-					allowed &= !o.AppearEntity(toAdd, new EntityAppearedEventArgs());
+					allowed &= !o.AppearEntity(new CollisionEventArgs(toAdd, toAdd.X, toAdd.Y));
 				}
 
 				if (allowed) outSpot.Occupants.Add(toAdd);
@@ -116,8 +116,8 @@ namespace Trilobyte
 
 					foreach (var o in newSpot.Occupants)
 					{
-						var callee = o.CollideWith(toMove, new CollidedWithEventArgs());
-						var caller = toMove.CollideWith(o, new CollidedWithEventArgs());
+						var callee = o.CollideWith(new CollisionEventArgs(toMove, x, y));
+						var caller = toMove.CollideWith(new CollisionEventArgs(o, x, y));
 						allowed = !callee && !caller;
 						if (!allowed) break;
 					}
@@ -160,7 +160,7 @@ namespace Trilobyte
 			}
 		}
 
-		public void Update(string[] args)
+		public void Update(UpdateEventArgs args)
 		{
 			List<Entity> entities = new List<Entity>();
 

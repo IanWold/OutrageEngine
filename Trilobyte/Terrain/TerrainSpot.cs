@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Trilobyte
 {
 	public class TerrainSpot
 	{
-		public List<Entity> Occupants = new List<Entity>();
+		public List<Entity> Occupants { get; set; }
 
 		public char Display
 		{
@@ -18,10 +14,14 @@ namespace Trilobyte
 			}
 		}
 
-		public TerrainSpot() { }
+		public TerrainSpot()
+		{
+			Occupants = new List<Entity>();
+		}
 
 		public TerrainSpot(Entity first)
 		{
+			Occupants = new List<Entity>();
 			Occupants.Add(first);
 		}
 	}

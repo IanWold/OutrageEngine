@@ -1,40 +1,44 @@
-﻿using System;
-
-namespace Trilobyte
+﻿namespace Trilobyte
 {
 	public class Entity
 	{
 		public char Display { get; set; }
-		public int X { get; set; }
-		public int Y { get; set; }
+
 		public Terrain Environment { get; set; }
 
-		public virtual void Update(string[] args) { }
+		public int X { get; set; }
 
-		public delegate void CollidedWithEventHandler(object sender, CollidedWithEventArgs e);
+		public int Y { get; set; }
+
+		public delegate void OnUpdateEventHandler(UpdateEventArgs e);
+		public event OnUpdateEventHandler OnUpdate;
+
+		public delegate void CollidedWithEventHandler(object sender, CollisionEventArgs e);
 		public event CollidedWithEventHandler OnCollidedWith;
 
-		public delegate void EntityAppearedEventHandler(object sender, EntityAppearedEventArgs e);
+		public delegate void EntityAppearedEventHandler(object sender, CollisionEventArgs e);
 		public event EntityAppearedEventHandler OnEntityAppeared;
 
-		public bool CollideWith(object sender, CollidedWithEventArgs e)
+		public bool CollideWith(CollisionEventArgs e)
 		{
-			if (OnCollidedWith != null)
-			{
-				OnCollidedWith(sender, e);
-			}
+			if (OnCollidedWith == null) return false;
 
+			OnCollidedWith(this, e);
 			return e.Cancel;
 		}
 
-		public bool AppearEntity(object sender, EntityAppearedEventArgs e)
+		public bool AppearEntity(CollisionEventArgs e)
 		{
-			if (OnEntityAppeared != null)
-			{
-				OnEntityAppeared(sender, e);
-			}
+			if (OnEntityAppeared == null) return false;
 
+			OnEntityAppeared(this, e);
 			return e.Cancel;
+		}
+
+		internal void Update(UpdateEventArgs e)
+		{
+			if (OnUpdate == null) return;
+			OnUpdate(e);
 		}
 	}
 }
