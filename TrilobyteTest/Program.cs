@@ -5,8 +5,8 @@ namespace TrilobyteTest
 {
 	partial class Program
 	{
-		static Scene FirstScene;
-		static Scene SecondScene;
+		public static Scene FirstScene;
+		public static Scene SecondScene;
 
 		static void Main(string[] args)
 		{
@@ -39,33 +39,33 @@ namespace TrilobyteTest
 
 		private static void SecondScene_OnUpdate(object sender, UpdateEventArgs e)
 		{
-			if (e.Key == ConsoleKey.RightArrow)
-			{
-				GameLoop.ChangeScene(FirstScene);
-			}
+			//if (e.Key == ConsoleKey.RightArrow)
+			//{
+			//	GameLoop.ChangeScene(FirstScene);
+			//}
 		}
 
 		private static void FirstScene_OnUpdate(object sender, UpdateEventArgs e)
 		{
-			if (e.Key == ConsoleKey.LeftArrow)
-			{
-				GameLoop.ChangeScene(SecondScene);
-			}
+			//if (e.Key == ConsoleKey.LeftArrow)
+			//{
+			//	GameLoop.ChangeScene(SecondScene);
+			//}
 		}
 
 		private static void PopulateSecondScene()
 		{
-			SecondScene.Terrain.Add(new PlayerEntity(), new Vector(1, 1));
+			SecondScene.Terrain.Add(new PlayerEntity(), new Vector(12, 12));
 
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(10, 10));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(11, 10));
-			SecondScene.Terrain.Add(new WallEntity(), new Vector(12, 10));
+			SecondScene.Terrain.Add(new DoorEntity(), new Vector(12, 10)); // <---
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(13, 10));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(14, 10));
 
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(10, 14));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(11, 14));
-			SecondScene.Terrain.Add(new DoorEntity(), new Vector(12, 14)); // <---
+			SecondScene.Terrain.Add(new WallEntity(), new Vector(12, 14));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(13, 14));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(14, 14));
 
@@ -96,6 +96,7 @@ namespace TrilobyteTest
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(16, 17));
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(16, 18));
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(16, 19));
+			FirstScene.Terrain.Add(new TransporterEntity(), new Vector(18, 18));
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(20, 17));
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(20, 18));
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(20, 19));

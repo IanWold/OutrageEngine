@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Scripts\Entity\Building\DoorEntity.cs" />
+    <Compile Include="Scripts\Entity\Building\TransporterEntity.cs" />
     <Compile Include="Scripts\Entity\Building\WallEntity.cs" />
     <Compile Include="Scripts\Entity\Inventory\KeyItem.cs" />
     <Compile Include="Program.cs" />
