@@ -9,9 +9,7 @@ Work to be done
 Here is some of the work that needs to go into the alpha version:
 
 * Levels/Scenes
-* Abstractify the Terrain
-	* Create a few terrain management options
-* Use a "camera" to write the field
+* Create a few terrain management options
 * Menu system
 * Optimize it
 * Create a samples library of pre-made assets
