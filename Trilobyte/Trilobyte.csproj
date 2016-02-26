@@ -46,8 +46,11 @@
     <Compile Include="Event Handlers\CollisionEventArgs.cs" />
     <Compile Include="Event Handlers\UpdateEventArgs.cs" />
     <Compile Include="GameLoop.cs" />
+    <Compile Include="Interfaces\INamed.cs" />
     <Compile Include="Interfaces\IUpdatable.cs" />
     <Compile Include="Interfaces\IWriteable.cs" />
+    <Compile Include="Level\ILevel.cs" />
+    <Compile Include="Level\Level.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene\IScene.cs" />
     <Compile Include="Scene\Scene.cs" />

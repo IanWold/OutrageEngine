@@ -30,11 +30,16 @@
 			}
 		}
 
+		public string Name { get; }
+
+		public Level ParentLevel { get; set; }
+
 		public delegate void OnUpdateEventHandler(object sender, UpdateEventArgs e);
 		public event OnUpdateEventHandler OnUpdate;
 
-		public Scene(ITerrainManager terrain, Camera fieldCamera)
+		public Scene(string name, ITerrainManager terrain, Camera fieldCamera)
 		{
+			Name = name;
 			Terrain = terrain;
 			FieldCamera = fieldCamera;
 		}

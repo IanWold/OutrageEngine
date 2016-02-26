@@ -4,28 +4,28 @@ namespace Trilobyte
 {
 	public static class GameLoop
 	{
-		static IScene CurrentScene;
+		static ILevel TheLevel;
 
-		public static void Begin(IScene startingScene)
+		public static void Begin(ILevel theLevel)
 		{
-			CurrentScene = startingScene;
+			TheLevel = theLevel;
 
 			while (true)
 			{
 				Console.Clear();
 				//Console.WriteLine(CurrentScene.Write());
-				Console.WriteLine(CurrentScene.Write());
+				Console.WriteLine(TheLevel.Write());
 
 				Console.Write(">:{{{)");
 				var input = Console.ReadKey().Key;
 
-				CurrentScene.Update(new UpdateEventArgs(input));
+				TheLevel.Update(new UpdateEventArgs(input));
 			}
 		}
 
-		public static void ChangeScene(IScene newScene)
+		public static void ChangeLevel(ILevel newLevel)
 		{
-			CurrentScene = newScene;
+			TheLevel = newLevel;
 		}
 	}
 }

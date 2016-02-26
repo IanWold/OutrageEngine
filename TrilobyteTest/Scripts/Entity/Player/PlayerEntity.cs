@@ -37,7 +37,7 @@ namespace TrilobyteTest
 
 					foreach (var i in MainPlayer.Inventory)
 					{
-						ParentScene.Terrain.Add(i, Position);
+						ParentScene.Terrain.Add(i, new Vector(Position.X + 1, Position.Y));
 					}
 
 					MainPlayer.Inventory.Clear();
