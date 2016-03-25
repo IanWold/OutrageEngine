@@ -1,15 +1,18 @@
-﻿using Trilobyte;
+﻿using System;
+using Trilobyte;
 
 namespace TrilobyteTest
 {
 	class TransporterEntity : Entity
 	{
 		IScene toTransport;
+		DoorEntity the_door;
 
-		public TransporterEntity(IScene toTrans)
+		public TransporterEntity(IScene toTrans, DoorEntity door = null)
 		{
 			Display = '@';
 			toTransport = toTrans;
+			the_door = door;
 
 			OnCollidedWith += TransporterEntity_OnCollidedWith;
 		}
@@ -18,7 +21,13 @@ namespace TrilobyteTest
 		{
 			if (e.Caller.GetType() == typeof(PlayerEntity))
 			{
-				toTransport.Terrain.Add(e.Caller, new Vector(12, 12));
+				if (toTransport == Program.SecondScene)
+					toTransport.Terrain.Add(e.Caller, new Vector(12, 12));
+				else
+				{
+					toTransport.Terrain.Add(e.Caller, new Vector(18, 18));
+					the_door.IsLocked = true;
+				}
 				GameLoop.NavigateScene(toTransport);
 				ParentScene.Terrain.Remove(e.Caller);
 			}

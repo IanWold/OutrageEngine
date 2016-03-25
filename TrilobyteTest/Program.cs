@@ -40,7 +40,8 @@ namespace TrilobyteTest
 		{
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(10, 10));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(11, 10));
-			SecondScene.Terrain.Add(new DoorEntity(), new Vector(12, 10)); // <---
+			var door = new DoorEntity();
+			SecondScene.Terrain.Add(door, new Vector(12, 10)); // <---
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(13, 10));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(14, 10));
 
@@ -53,7 +54,7 @@ namespace TrilobyteTest
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(10, 11));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(10, 12));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(10, 13));
-			SecondScene.Terrain.Add(new TransporterEntity(FirstScene), new Vector(12, 13));
+			SecondScene.Terrain.Add(new TransporterEntity(FirstScene, door), new Vector(12, 13));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(14, 11));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(14, 12));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(14, 13));
