@@ -32,8 +32,6 @@
 
 		public string Name { get; }
 
-		public Level ParentLevel { get; set; }
-
 		public delegate void OnUpdateEventHandler(object sender, UpdateEventArgs e);
 		public event OnUpdateEventHandler OnUpdate;
 

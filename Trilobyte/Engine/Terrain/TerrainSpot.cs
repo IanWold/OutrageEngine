@@ -2,17 +2,9 @@
 
 namespace Trilobyte
 {
-	public class TerrainSpot
+	public class TerrainSpot : IWriteable
 	{
 		public List<Entity> Occupants { get; set; }
-
-		public char Display
-		{
-			get
-			{
-				return Occupants[Occupants.Count - 1].Display;
-			}
-		}
 
 		public TerrainSpot()
 		{
@@ -23,6 +15,11 @@ namespace Trilobyte
 		{
 			Occupants = new List<Entity>();
 			Occupants.Add(first);
+		}
+
+		public string Write()
+		{
+			return Occupants[Occupants.Count - 1].Display.ToString();
 		}
 	}
 }

@@ -4,28 +4,44 @@ namespace Trilobyte
 {
 	public static class GameLoop
 	{
-		static ILevel TheLevel;
+		static IViewable CurrentView;
 
-		public static void Begin(ILevel theLevel)
+		public static void Begin(IViewable theView)
 		{
-			TheLevel = theLevel;
+			CurrentView = theView;
 
 			while (true)
 			{
 				Console.Clear();
 				//Console.WriteLine(CurrentScene.Write());
-				Console.WriteLine(TheLevel.Write());
+				Console.WriteLine(CurrentView.Write());
 
 				Console.Write(">:{{{)");
 				var input = Console.ReadKey().Key;
 
-				TheLevel.Update(new UpdateEventArgs(input));
+				CurrentView.Update(new UpdateEventArgs(input));
 			}
 		}
 
-		public static void ChangeLevel(ILevel newLevel)
+		public static void NavigateView(IViewable toNavigate)
 		{
-			TheLevel = newLevel;
+			CurrentView = toNavigate;
+		}
+
+		public static void NavigateScene(IScene toNavigate)
+		{
+			if (CurrentView.GetType().GetInterface("IScene") != null)
+			{
+				CurrentView = toNavigate;
+			}
+			else if (CurrentView.GetType().GetInterface("ISceneWrapper") != null)
+			{
+				(CurrentView as ISceneWrapper).NavigateScene(toNavigate);
+			}
+			else
+			{
+				throw new ArgumentException("The current view can't navigate to a scene.");
+			}
 		}
 	}
 }

@@ -7,7 +7,7 @@ namespace Trilobyte
 	public class DictionaryTerrainManager : ITerrainManager
 	{
 		Dictionary<Vector, TerrainSpot> Field { get; set; }
-		
+
 		IScene _ParentScene;
 		public IScene ParentScene
 		{

@@ -45,14 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Scripts\Entity\Building\DoorEntity.cs" />
-    <Compile Include="Scripts\Entity\Building\TransporterEntity.cs" />
-    <Compile Include="Scripts\Entity\Building\WallEntity.cs" />
-    <Compile Include="Scripts\Entity\Inventory\KeyItem.cs" />
+    <Compile Include="Entities\Building\DoorEntity.cs" />
+    <Compile Include="Entities\Building\TransporterEntity.cs" />
+    <Compile Include="Entities\Building\WallEntity.cs" />
+    <Compile Include="Entities\Inventory\KeyItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scripts\Entity\Player\PlayerEntity.cs" />
-    <Compile Include="Scripts\MainPlayer.cs" />
+    <Compile Include="Entities\Player\PlayerEntity.cs" />
+    <Compile Include="MainPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

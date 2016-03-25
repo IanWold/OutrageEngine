@@ -8,12 +8,10 @@ namespace TrilobyteTest
 		public static Scene FirstScene;
 		public static Scene SecondScene;
 
-		public static Level FirstLevel;
-
 		static void Main(string[] args)
 		{
 			InitializeGame();
-			GameLoop.Begin(FirstLevel);
+			GameLoop.Begin(FirstScene);
 		}
 
 		static void InitializeGame()
@@ -34,14 +32,11 @@ namespace TrilobyteTest
 				new DictionaryTerrainManager(' ', new Vector(32, 32)),
 				new Camera(new Vector(0, 0), new Vector(32, 32)));
 
-			PopulateFirstScene();
-			PopulateSecondScene();
-
-			FirstLevel = new Level("FirstLevel", FirstScene);
-			FirstLevel.Add(SecondScene);
+			FirstScene_Load();
+			SecondScene_Load();
 		}
 
-		private static void PopulateSecondScene()
+		private static void SecondScene_Load()
 		{
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(10, 10));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(11, 10));
@@ -58,13 +53,13 @@ namespace TrilobyteTest
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(10, 11));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(10, 12));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(10, 13));
-			SecondScene.Terrain.Add(new TransporterEntity(FirstScene.Name), new Vector(12, 13));
+			SecondScene.Terrain.Add(new TransporterEntity(FirstScene), new Vector(12, 13));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(14, 11));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(14, 12));
 			SecondScene.Terrain.Add(new WallEntity(), new Vector(14, 13));
 		}
 
-		private static void PopulateFirstScene()
+		private static void FirstScene_Load()
 		{
 			FirstScene.Terrain.Add(new PlayerEntity(), new Vector(1, 1));
 
@@ -76,14 +71,13 @@ namespace TrilobyteTest
 
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(16, 20));
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(17, 20));
-			//FirstScene.Terrain.Add(new DoorEntity(), new Vector(18, 20)); // <---
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(19, 20));
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(20, 20));
 
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(16, 17));
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(16, 18));
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(16, 19));
-			FirstScene.Terrain.Add(new TransporterEntity(SecondScene.Name), new Vector(18, 17));
+			FirstScene.Terrain.Add(new TransporterEntity(SecondScene), new Vector(18, 17));
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(20, 17));
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(20, 18));
 			FirstScene.Terrain.Add(new WallEntity(), new Vector(20, 19));

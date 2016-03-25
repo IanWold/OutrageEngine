@@ -40,24 +40,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Camera\Camera.cs" />
-    <Compile Include="Entity\EmptyEntity.cs" />
-    <Compile Include="Entity\Entity.cs" />
+    <Compile Include="Engine\Camera\Camera.cs" />
+    <Compile Include="Engine\Entity\EmptyEntity.cs" />
+    <Compile Include="Engine\Entity\Entity.cs" />
     <Compile Include="Event Handlers\CollisionEventArgs.cs" />
     <Compile Include="Event Handlers\UpdateEventArgs.cs" />
     <Compile Include="GameLoop.cs" />
-    <Compile Include="Interfaces\INamed.cs" />
     <Compile Include="Interfaces\IUpdatable.cs" />
+    <Compile Include="Interfaces\IViewable.cs" />
     <Compile Include="Interfaces\IWriteable.cs" />
     <Compile Include="Level\ILevel.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scene\IScene.cs" />
-    <Compile Include="Scene\Scene.cs" />
-    <Compile Include="Terrain\ITerrainManager.cs" />
-    <Compile Include="Terrain\DictionaryTerrainManager.cs" />
-    <Compile Include="Terrain\TerrainSpot.cs" />
+    <Compile Include="Engine\Scene\IScene.cs" />
+    <Compile Include="Engine\Scene\Scene.cs" />
+    <Compile Include="Engine\Terrain\ITerrainManager.cs" />
+    <Compile Include="Engine\Terrain\DictionaryTerrainManager.cs" />
+    <Compile Include="Engine\Terrain\TerrainSpot.cs" />
     <Compile Include="Vector\Vector.cs" />
+    <Compile Include="UI\SceneWrapper\ISceneWrapper.cs" />
+    <Compile Include="UI\SceneWrapper\SceneWrapper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-
-namespace Trilobyte
+﻿namespace Trilobyte
 {
 	public class Camera
 	{
@@ -13,7 +6,7 @@ namespace Trilobyte
 
 		public Vector Position { get; set; }
 
-		public Vector Scope { get; set; }
+		public Vector Scope { get; private set; }
 
 		public Camera(Vector postition, Vector scope)
 		{
@@ -31,7 +24,7 @@ namespace Trilobyte
 
 				for (int x = Position.X; x <= Scope.X; x++)
 				{
-					row += Parent.Terrain[x, y].Display.ToString() + " ";
+					row += Parent.Terrain[x, y].Write() + " ";
 				}
 
 				toReturn += row + "\r\n";

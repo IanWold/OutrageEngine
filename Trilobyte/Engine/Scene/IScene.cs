@@ -1,10 +1,8 @@
 ﻿namespace Trilobyte
 {
-	public interface IScene : IUpdatable, IWriteable, INamed
+	public interface IScene : IViewable
 	{
 		Camera FieldCamera { get; set; }
-
-		Level ParentLevel { get; set; }
 
 		ITerrainManager Terrain { get; set; }
 	}

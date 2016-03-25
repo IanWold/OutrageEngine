@@ -4,9 +4,9 @@ namespace TrilobyteTest
 {
 	class TransporterEntity : Entity
 	{
-		string toTransport;
+		IScene toTransport;
 
-		public TransporterEntity(string toTrans)
+		public TransporterEntity(IScene toTrans)
 		{
 			Display = '@';
 			toTransport = toTrans;
@@ -18,10 +18,12 @@ namespace TrilobyteTest
 		{
 			if (e.Caller.GetType() == typeof(PlayerEntity))
 			{
-				ParentScene.ParentLevel.Get(toTransport).Terrain.Add(e.Caller, new Vector(12, 12));
-				ParentScene.ParentLevel.ChangeScene(toTransport);
+				toTransport.Terrain.Add(e.Caller, new Vector(12, 12));
+				GameLoop.NavigateScene(toTransport);
 				ParentScene.Terrain.Remove(e.Caller);
 			}
+
+			e.Cancel = true;
 		}
 	}
 }

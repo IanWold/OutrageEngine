@@ -1,11 +1,11 @@
-﻿namespace Trilobyte
-{
-	public interface ILevel : IUpdatable, IWriteable, INamed
-	{
-		void Add(IScene toAdd);
+﻿//namespace Trilobyte
+//{
+//	public interface ILevel : IUpdatable, IWriteable, INamed
+//	{
+//		void Add(IScene toAdd);
 
-		IScene Get(string toGet);
+//		IScene Get(string toGet);
 
-		void ChangeScene(string toChange);
-	}
-}
+//		void ChangeScene(string toChange);
+//	}
+//}
