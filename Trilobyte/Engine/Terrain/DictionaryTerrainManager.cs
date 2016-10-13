@@ -173,9 +173,16 @@ namespace Trilobyte
 		{
 			List<Entity> entities = new List<Entity>();
 
-			foreach (var s in Field)
-				foreach (var e in s.Value.Occupants)
-					entities.Add(e);
+			try
+			{
+				foreach (var s in Field)
+					foreach (var e in s.Value.Occupants)
+						entities.Add(e);
+			}
+			catch (Exception ex)
+			{
+
+			}
 
 			foreach (var e in entities)
 				e.Update(args);

@@ -42,6 +42,20 @@
 			FieldCamera = fieldCamera;
 		}
 
+		public void InsertString(string toWrite, Vector location)
+		{
+			foreach (var w in toWrite.Split('\n'))
+			{
+				var charArr = w.ToCharArray();
+				for (int i = 0; i < charArr.Length; i++)
+				{
+					Terrain.Add(new Entity() { Display = charArr[i] }, new Vector(location.X + i, location.Y));
+				}
+
+				location.Y++;
+			}
+		}
+
 		public string Write()
 		{
 			return FieldCamera.Write();

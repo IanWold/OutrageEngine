@@ -17,8 +17,8 @@ namespace TrilobyteTest
 		static void InitializeGame()
 		{
 			Console.Title = "Trilobyte Test Game";
-			Console.WindowHeight = Console.BufferHeight = 35;
-			Console.WindowWidth = Console.BufferWidth = 70;
+			//Console.WindowHeight = Console.BufferHeight = 35;
+			//Console.WindowWidth = Console.BufferWidth = 70;
 			Console.BackgroundColor = ConsoleColor.DarkGreen;
 			Console.ForegroundColor = ConsoleColor.White;
 			
