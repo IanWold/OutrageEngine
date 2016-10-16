@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Trilobyte;
+using Outrage;
 
-namespace TrilobyteTest
+namespace OutrageTest
 {
 	public static class MainPlayer
 	{

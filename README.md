@@ -1,5 +1,5 @@
-Trilobyte
-=========
+Outrage Engine
+==============
 
 I'm making a game engine for console ASCII games. It's in the very early prototype now, but the name is 100% final.
 

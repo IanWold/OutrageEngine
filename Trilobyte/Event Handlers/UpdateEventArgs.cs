@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Trilobyte
+namespace Outrage
 {
 	public class UpdateEventArgs
 	{

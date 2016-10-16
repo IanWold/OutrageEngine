@@ -1,4 +1,4 @@
-﻿namespace Trilobyte
+﻿namespace Outrage
 {
 	public class Camera
 	{

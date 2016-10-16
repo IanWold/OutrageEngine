@@ -1,6 +1,6 @@
-﻿using Trilobyte;
+﻿using Outrage;
 
-namespace TrilobyteTest
+namespace OutrageTest
 {
 	class DoorEntity : Entity
 	{

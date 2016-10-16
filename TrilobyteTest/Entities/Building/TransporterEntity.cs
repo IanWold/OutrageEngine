@@ -1,7 +1,7 @@
 ﻿using System;
-using Trilobyte;
+using Outrage;
 
-namespace TrilobyteTest
+namespace OutrageTest
 {
 	class TransporterEntity : Entity
 	{

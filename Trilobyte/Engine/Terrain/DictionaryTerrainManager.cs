@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Trilobyte
+namespace Outrage
 {
 	public class DictionaryTerrainManager : ITerrainManager
 	{

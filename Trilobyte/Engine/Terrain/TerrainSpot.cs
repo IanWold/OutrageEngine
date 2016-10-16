@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Trilobyte
+namespace Outrage
 {
 	public class TerrainSpot : IWriteable
 	{

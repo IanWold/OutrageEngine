@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AD39991D-80A8-4A4B-A4C3-E12A1A3CF7E5}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{E092B687-6835-4927-BAE4-5422B13F6536}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TrilobyteTest</RootNamespace>
-    <AssemblyName>TrilobyteTest</AssemblyName>
+    <RootNamespace>Outrage</RootNamespace>
+    <AssemblyName>OutrageEngine</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,7 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -45,26 +46,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Building\DoorEntity.cs" />
-    <Compile Include="Entities\Building\TransporterEntity.cs" />
-    <Compile Include="Entities\Building\WallEntity.cs" />
-    <Compile Include="Entities\Inventory\KeyItem.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Engine\Camera\Camera.cs" />
+    <Compile Include="Engine\Entity\EmptyEntity.cs" />
+    <Compile Include="Engine\Entity\Entity.cs" />
+    <Compile Include="Event Handlers\CollisionEventArgs.cs" />
+    <Compile Include="Event Handlers\UpdateEventArgs.cs" />
+    <Compile Include="GameLoop.cs" />
+    <Compile Include="Interfaces\IUpdatable.cs" />
+    <Compile Include="Interfaces\IViewable.cs" />
+    <Compile Include="Interfaces\IWriteable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\Player\PlayerEntity.cs" />
-    <Compile Include="MainPlayer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Trilobyte\Trilobyte.csproj">
-      <Project>{e092b687-6835-4927-bae4-5422b13f6536}</Project>
-      <Name>Trilobyte</Name>
-    </ProjectReference>
+    <Compile Include="Engine\Scene\IScene.cs" />
+    <Compile Include="Engine\Scene\Scene.cs" />
+    <Compile Include="Engine\Terrain\ITerrainManager.cs" />
+    <Compile Include="Engine\Terrain\DictionaryTerrainManager.cs" />
+    <Compile Include="Engine\Terrain\TerrainSpot.cs" />
+    <Compile Include="Vector\Vector.cs" />
+    <Compile Include="UI\SceneWrapper\ISceneWrapper.cs" />
+    <Compile Include="UI\SceneWrapper\SceneWrapper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

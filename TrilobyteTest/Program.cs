@@ -1,7 +1,7 @@
 ﻿using System;
-using Trilobyte;
+using Outrage;
 
-namespace TrilobyteTest
+namespace OutrageTest
 {
 	partial class Program
 	{
@@ -16,7 +16,7 @@ namespace TrilobyteTest
 
 		static void InitializeGame()
 		{
-			Console.Title = "Trilobyte Test Game";
+			Console.Title = "Outrage Engine Test Game";
 			//Console.WindowHeight = Console.BufferHeight = 35;
 			//Console.WindowWidth = Console.BufferWidth = 70;
 			Console.BackgroundColor = ConsoleColor.DarkGreen;

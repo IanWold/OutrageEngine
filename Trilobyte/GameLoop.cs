@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Trilobyte
+namespace Outrage
 {
 	public static class GameLoop
 	{
