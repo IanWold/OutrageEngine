@@ -61,7 +61,7 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Trilobyte\OutrageEngine.csproj">
+    <ProjectReference Include="..\Outrage\OutrageEngine.csproj">
       <Project>{e092b687-6835-4927-bae4-5422b13f6536}</Project>
       <Name>OutrageEngine</Name>
     </ProjectReference>
