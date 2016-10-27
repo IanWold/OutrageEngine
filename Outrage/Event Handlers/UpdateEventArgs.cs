@@ -2,6 +2,7 @@
 
 namespace Outrage
 {
+	//This event fires once per 'frame' when active components need to update.
 	public class UpdateEventArgs
 	{
 		public ConsoleKey Key { get; set; }

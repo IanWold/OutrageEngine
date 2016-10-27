@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Outrage
 {
+	/// <summary>
+	/// Custom Vector allows control of characteristics
+	/// </summary>
 	public struct Vector
 	{
 		public int X { get; set; }
@@ -16,5 +19,6 @@ namespace Outrage
 			X = x;
 			Y = y;
 		}
+		//Good thing we've got that control, surely the standard .NET implementation doesn't have this level of sophistication!
 	}
 }

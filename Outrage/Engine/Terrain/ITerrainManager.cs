@@ -1,5 +1,8 @@
 ﻿namespace Outrage
 {
+	/// <summary>
+	/// A terrain manager keeps track of entities in a field (terrain).
+	/// </summary>
 	public interface ITerrainManager : IUpdatable
 	{
 		void Add(Entity toAdd, Vector location);

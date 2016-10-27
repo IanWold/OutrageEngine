@@ -2,6 +2,10 @@
 
 namespace Outrage
 {
+	/// <summary>
+	/// A single character on the screen.
+	/// Used by DictionaryTerrainManager.
+	/// </summary>
 	public class TerrainSpot : IWriteable
 	{
 		public List<Entity> Occupants { get; set; }

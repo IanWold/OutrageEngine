@@ -1,5 +1,8 @@
 ﻿namespace Outrage
 {
+	/// <summary>
+	/// This event fires when entities collide
+	/// </summary>
 	public class CollisionEventArgs
 	{
 		public bool Cancel { get; set; }

@@ -1,5 +1,8 @@
 ﻿namespace Outrage
 {
+	/// <summary>
+	/// A generic scene can use any terrain manager and uses a camera to output the view of the scene to the console.
+	/// </summary>
 	public class Scene : IScene
 	{
 		ITerrainManager _Terrain;
@@ -42,6 +45,11 @@
 			FieldCamera = fieldCamera;
 		}
 
+		/// <summary>
+		/// Writes a string on top of the scene
+		/// </summary>
+		/// <param name="toWrite">The text to write on the scene</param>
+		/// <param name="location">The location to write the text</param>
 		public void InsertString(string toWrite, Vector location)
 		{
 			foreach (var w in toWrite.Split('\n'))
@@ -56,11 +64,19 @@
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns>The view of the scene for the loop</returns>
 		public string Write()
 		{
 			return FieldCamera.Write();
 		}
 
+		/// <summary>
+		/// Called once per 'frame'
+		/// </summary>
+		/// <param name="e">The state of the update</param>
 		public void Update(UpdateEventArgs e)
 		{
 			Terrain.Update(e);
