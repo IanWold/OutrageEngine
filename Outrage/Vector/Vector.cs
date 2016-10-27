@@ -19,6 +19,16 @@ namespace Outrage
 			X = x;
 			Y = y;
 		}
-		//Good thing we've got that control, surely the standard .NET implementation doesn't have this level of sophistication!
+
+		/// <summary>
+		/// Add two vectors
+		/// </summary>
+		/// <param name="first"></param>
+		/// <param name="second"></param>
+		/// <returns>A new vector whose X and Y are each the sum of that of its constituents</returns>
+		public static Vector operator +(Vector first, Vector second)
+		{
+			return new Vector(first.X + second.X, first.Y + second.Y);
+		}
 	}
 }

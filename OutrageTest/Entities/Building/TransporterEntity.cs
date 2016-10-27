@@ -3,13 +3,14 @@ using Outrage;
 
 namespace OutrageTest
 {
-	class TransporterEntity : Entity
+	class TransporterEntity : SingleEntity
 	{
 		IScene toTransport;
 		DoorEntity the_door;
 
-		public TransporterEntity(IScene toTrans, DoorEntity door = null) : base('@')
+		public TransporterEntity(IScene toTrans, DoorEntity door = null)
 		{
+			Display = '@';
 			toTransport = toTrans;
 			the_door = door;
 

@@ -5,7 +5,7 @@ namespace OutrageTest
 {
 	public static class MainPlayer
 	{
-		public static List<Entity> Inventory = new List<Entity>();
+		public static List<SingleEntity> Inventory = new List<SingleEntity>();
 
 		public static bool InventoryHasKey
 		{

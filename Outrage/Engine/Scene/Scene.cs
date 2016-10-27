@@ -57,7 +57,7 @@
 				var charArr = w.ToCharArray();
 				for (int i = 0; i < charArr.Length; i++)
 				{
-					Terrain.Add(new Entity(charArr[i]), new Vector(location.X + i, location.Y));
+					Terrain.Add(new SingleEntity() { Display = charArr[i] }, new Vector(location.X + i, location.Y));
 				}
 
 				location.Y++;

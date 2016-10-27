@@ -2,7 +2,7 @@
 
 namespace OutrageTest
 {
-	class DoorEntity : Entity
+	class DoorEntity : SingleEntity
 	{
 		bool _IsLocked = true;
 		public bool IsLocked
@@ -18,8 +18,9 @@ namespace OutrageTest
 			}
 		}
 
-		public DoorEntity() : base('_')
+		public DoorEntity()
 		{
+			Display = '_';
 			OnCollidedWith += DoorEntity_OnCollidedWith;
 		}
 

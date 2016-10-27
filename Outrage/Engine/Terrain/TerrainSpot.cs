@@ -8,16 +8,16 @@ namespace Outrage
 	/// </summary>
 	public class TerrainSpot : IWriteable
 	{
-		public List<Entity> Occupants { get; set; }
+		public List<SingleEntity> Occupants { get; set; }
 
 		public TerrainSpot()
 		{
-			Occupants = new List<Entity>();
+			Occupants = new List<SingleEntity>();
 		}
 
-		public TerrainSpot(Entity first)
+		public TerrainSpot(SingleEntity first)
 		{
-			Occupants = new List<Entity>();
+			Occupants = new List<SingleEntity>();
 			Occupants.Add(first);
 		}
 

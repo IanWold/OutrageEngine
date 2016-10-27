@@ -5,11 +5,11 @@
 	/// </summary>
 	public interface ITerrainManager : IUpdatable
 	{
-		void Add(Entity toAdd, Vector location);
+		void Add(IEntity toAdd, Vector location);
 
-		void Move(Entity toMove, Vector location);
+		void Move(IEntity toMove, Vector location);
 
-		void Remove(Entity toRemove);
+		void Remove(IEntity toRemove);
 
 		void Clear();
 

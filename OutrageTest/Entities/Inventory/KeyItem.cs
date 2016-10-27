@@ -2,10 +2,11 @@
 
 namespace OutrageTest
 {
-	class KeyItem : Entity
+	class KeyItem : SingleEntity
 	{
-		public KeyItem() : base('.')
+		public KeyItem()
 		{
+			Display = '.';
 			OnCollidedWith += KeyItem_OnCollidedWith;
 		}
 

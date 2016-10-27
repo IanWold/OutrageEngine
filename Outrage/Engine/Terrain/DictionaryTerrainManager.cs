@@ -57,7 +57,7 @@ namespace Outrage
 				{
 					return outSpot;
 				}
-				else return new TerrainSpot(new Entity(EmptyDisplay, new Vector(x, y)));
+				else return new TerrainSpot(new SingleEntity() { Display = EmptyDisplay, Position = new Vector(x, y) });
 			}
 			private set
 			{
@@ -79,8 +79,13 @@ namespace Outrage
 		/// Removes an entity from the terrain.
 		/// </summary>
 		/// <param name="other">The entity to remove.</param>
-		public void Remove(Entity other)
+		public void Remove(IEntity other)
 		{
+			if (!(other is SingleEntity))
+			{
+				throw new NotImplementedException("Non-single entities not implemented");
+			}
+
 			var toRemove = from spot in Field
 						   from ent in spot.Value.Occupants
 						   where ent == other
@@ -88,7 +93,7 @@ namespace Outrage
 
 			foreach (var s in toRemove)
 			{
-				s.Value.Occupants.Remove(other);
+				s.Value.Occupants.Remove((SingleEntity)other);
 
 				if (s.Value.Occupants.Count == 0)
 				{
@@ -110,9 +115,19 @@ namespace Outrage
 		/// </summary>
 		/// <param name="toAdd">The entity to add</param>
 		/// <param name="location">The location to add at</param>
-		public void Add(Entity toAdd, Vector location)
+		public void Add(IEntity toAdd, Vector location)
 		{
-			Insert(toAdd, location, false);
+			if (toAdd is CompositionEntity)
+			{
+				foreach (SingleEntity c in ((CompositionEntity)toAdd).Children)
+				{
+					Insert(c, location + c.Position, false);
+				}
+			}
+			else
+			{
+				Insert((SingleEntity)toAdd, location, false);
+			}
 		}
 
 		/// <summary>
@@ -120,9 +135,14 @@ namespace Outrage
 		/// </summary>
 		/// <param name="toMove">The entity to move</param>
 		/// <param name="location">The location to move to</param>
-		public void Move(Entity toMove, Vector location)
+		public void Move(IEntity toMove, Vector location)
 		{
-			Insert(toMove, location, true);
+			if (!(toMove is SingleEntity))
+			{
+				throw new NotImplementedException("Non-single entities not implemented");
+			}
+
+			Insert((SingleEntity)toMove, location, true);
 		}
 
 		/// <summary>
@@ -131,7 +151,7 @@ namespace Outrage
 		/// <param name="toInsert">The entity to insert</param>
 		/// <param name="location">The location to insert at</param>
 		/// <param name="removeOldInstance">True if Insert should delete an existing occurrence of toInsert in the terrain</param>
-		void Insert(Entity toInsert, Vector location, bool removeOldInstance)
+		void Insert(SingleEntity toInsert, Vector location, bool removeOldInstance)
 		{
 			try
 			{
@@ -188,7 +208,7 @@ namespace Outrage
 
 				toInsert.ParentScene = ParentScene;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 
 			}
@@ -208,7 +228,7 @@ namespace Outrage
 		/// <param name="args">The state of the update</param>
 		public void Update(UpdateEventArgs args)
 		{
-			List<Entity> entities = new List<Entity>();
+			List<IEntity> entities = new List<IEntity>();
 
 			try
 			{
@@ -216,7 +236,7 @@ namespace Outrage
 					foreach (var e in s.Value.Occupants)
 						entities.Add(e);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 
 			}

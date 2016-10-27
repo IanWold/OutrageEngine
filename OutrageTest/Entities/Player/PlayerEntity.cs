@@ -3,10 +3,11 @@ using Outrage;
 
 namespace OutrageTest
 {
-	class PlayerEntity : Entity
+	class PlayerEntity : SingleEntity
 	{
-		public PlayerEntity() : base('☺')
+		public PlayerEntity()
 		{
+			Display = '☺';
 			OnUpdate += PlayerEntity_OnUpdate;
 		}
 

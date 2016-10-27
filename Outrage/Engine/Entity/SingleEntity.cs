@@ -1,9 +1,11 @@
-﻿namespace Outrage
+﻿using System;
+
+namespace Outrage
 {
 	/// <summary>
 	/// Represents something tangible in the game
 	/// </summary>
-	public class Entity : IUpdatable
+	public class SingleEntity : IEntity
 	{
 		public char Display { get; set; }
 
@@ -19,17 +21,6 @@
 
 		public delegate void EntityAppearedEventHandler(object sender, CollisionEventArgs e);
 		public event EntityAppearedEventHandler OnEntityAppeared;
-		
-		public Entity(char display, Vector position)
-		{
-			Display = display;
-			Position = position;
-		}
-
-		public Entity(char display)
-		{
-			Display = display;
-		}
 
 		/// <summary>
 		/// Called when two entities run into each other

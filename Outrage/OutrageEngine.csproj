@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\Camera\Camera.cs" />
-    <Compile Include="Engine\Entity\Entity.cs" />
+    <Compile Include="Engine\Entity\CompositionEntity.cs" />
+    <Compile Include="Engine\Entity\SingleEntity.cs" />
+    <Compile Include="Engine\Entity\IEntity.cs" />
     <Compile Include="Event Handlers\CollisionEventArgs.cs" />
     <Compile Include="Event Handlers\UpdateEventArgs.cs" />
     <Compile Include="GameLoop.cs" />
