@@ -47,7 +47,7 @@ namespace Outrage
 				{
 					return outSpot;
 				}
-				else return new TerrainSpot(new EmptyEntity(EmptyDisplay, new Vector(x, y)));
+				else return new TerrainSpot(new Entity(EmptyDisplay, new Vector(x, y)));
 			}
 			private set
 			{

@@ -8,9 +8,8 @@ namespace OutrageTest
 		IScene toTransport;
 		DoorEntity the_door;
 
-		public TransporterEntity(IScene toTrans, DoorEntity door = null)
+		public TransporterEntity(IScene toTrans, DoorEntity door = null) : base('@')
 		{
-			Display = '@';
 			toTransport = toTrans;
 			the_door = door;
 

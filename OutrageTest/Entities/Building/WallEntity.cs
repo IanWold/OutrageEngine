@@ -4,10 +4,8 @@ namespace OutrageTest
 {
 	class WallEntity : Entity
 	{
-		public WallEntity()
+		public WallEntity() : base('■')
 		{
-			Display = '■';
-
 			OnCollidedWith += WallEntity_OnCollidedWith;
 		}
 

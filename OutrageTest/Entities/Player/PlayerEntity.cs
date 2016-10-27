@@ -5,10 +5,8 @@ namespace OutrageTest
 {
 	class PlayerEntity : Entity
 	{
-		public PlayerEntity()
+		public PlayerEntity() : base('☺')
 		{
-			Display = '☺';
-
 			OnUpdate += PlayerEntity_OnUpdate;
 		}
 

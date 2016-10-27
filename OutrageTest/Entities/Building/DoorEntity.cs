@@ -18,10 +18,8 @@ namespace OutrageTest
 			}
 		}
 
-		public DoorEntity()
+		public DoorEntity() : base('_')
 		{
-			Display = '_';
-
 			OnCollidedWith += DoorEntity_OnCollidedWith;
 		}
 

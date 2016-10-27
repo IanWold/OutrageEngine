@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\Camera\Camera.cs" />
-    <Compile Include="Engine\Entity\EmptyEntity.cs" />
     <Compile Include="Engine\Entity\Entity.cs" />
     <Compile Include="Event Handlers\CollisionEventArgs.cs" />
     <Compile Include="Event Handlers\UpdateEventArgs.cs" />
@@ -62,8 +61,6 @@
     <Compile Include="Engine\Terrain\DictionaryTerrainManager.cs" />
     <Compile Include="Engine\Terrain\TerrainSpot.cs" />
     <Compile Include="Vector\Vector.cs" />
-    <Compile Include="UI\SceneWrapper\ISceneWrapper.cs" />
-    <Compile Include="UI\SceneWrapper\SceneWrapper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

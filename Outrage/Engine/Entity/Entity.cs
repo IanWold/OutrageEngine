@@ -6,7 +6,7 @@
 
 		public IScene ParentScene { get; set; }
 
-		public Vector Position;
+		public Vector Position { get; set; }
 
 		public delegate void OnUpdateEventHandler(UpdateEventArgs e);
 		public event OnUpdateEventHandler OnUpdate;
@@ -16,6 +16,17 @@
 
 		public delegate void EntityAppearedEventHandler(object sender, CollisionEventArgs e);
 		public event EntityAppearedEventHandler OnEntityAppeared;
+		
+		public Entity(char display, Vector position)
+		{
+			Display = display;
+			Position = position;
+		}
+
+		public Entity(char display)
+		{
+			Display = display;
+		}
 
 		public bool CollideWith(CollisionEventArgs e)
 		{
