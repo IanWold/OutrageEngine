@@ -1,18 +1,19 @@
-﻿using Outrage;
-
-namespace OutrageTest
+﻿namespace OutrageTest.Entities.Building
 {
-	class WallEntity : SingleEntity
-	{
-		public WallEntity()
-		{
-			Display = '■';
-			OnCollidedWith += WallEntity_OnCollidedWith;
-		}
+    using OutrageEngine.Engine.Entity;
+    using OutrageEngine.EventHandlers;
 
-		private void WallEntity_OnCollidedWith(object sender, CollisionEventArgs e)
-		{
-			e.Cancel = true;
-		}
-	}
+    internal sealed class WallEntity : SingleEntity
+    {
+        public WallEntity()
+        {
+            Display = '■';
+            OnCollidedWith += WallEntity_OnCollidedWith;
+        }
+
+        private void WallEntity_OnCollidedWith(object sender, CollisionEventArgs e)
+        {
+            e.Cancel = true;
+        }
+    }
 }

@@ -1,12 +1,15 @@
-﻿namespace Outrage
+﻿namespace OutrageEngine.Engine.Entity
 {
-	/// <summary>
-	/// Any entity is updatable and must handle collisions
-	/// </summary>
-	public interface IEntity : IUpdatable
-	{
-		bool CollideWith(CollisionEventArgs e);
+    using OutrageEngine.EventHandlers;
+    using OutrageEngine.Interfaces;
 
-		bool AppearEntity(CollisionEventArgs e);
-	}
+    /// <summary>
+    /// Any entity is updatable and must handle collisions
+    /// </summary>
+    public interface IEntity : IUpdatable
+    {
+        bool CollideWith(CollisionEventArgs e);
+
+        bool AppearEntity(CollisionEventArgs e);
+    }
 }

@@ -1,38 +1,44 @@
-﻿using System;
-using Outrage;
-
-namespace OutrageTest
+﻿namespace OutrageTest.Entities.Building
 {
-	class TransporterEntity : SingleEntity
-	{
-		IScene toTransport;
-		DoorEntity the_door;
+    using OutrageEngine;
+    using OutrageEngine.Engine.Entity;
+    using OutrageEngine.Engine.Scene;
+    using OutrageEngine.EventHandlers;
+    using OutrageEngine.Vector;
+    using OutrageTest.Entities.Player;
 
-		public TransporterEntity(IScene toTrans, DoorEntity door = null)
-		{
-			Display = '@';
-			toTransport = toTrans;
-			the_door = door;
+    internal sealed class TransporterEntity : SingleEntity
+    {
+        private readonly DoorEntity the_door;
 
-			OnCollidedWith += TransporterEntity_OnCollidedWith;
-		}
+        private readonly IScene toTransport;
 
-		private void TransporterEntity_OnCollidedWith(object sender, CollisionEventArgs e)
-		{
-			if (e.Caller.GetType() == typeof(PlayerEntity))
-			{
-				if (toTransport == Program.SecondScene)
-					toTransport.Terrain.Add(e.Caller, new Vector(12, 12));
-				else
-				{
-					toTransport.Terrain.Add(e.Caller, new Vector(18, 18));
-					the_door.IsLocked = true;
-				}
-				GameLoop.NavigateScene(toTransport);
-				ParentScene.Terrain.Remove(e.Caller);
-			}
+        public TransporterEntity(IScene toTrans, DoorEntity door = null)
+        {
+            Display = '@';
+            toTransport = toTrans;
+            the_door = door;
 
-			e.Cancel = true;
-		}
-	}
+            OnCollidedWith += TransporterEntity_OnCollidedWith;
+        }
+
+        private void TransporterEntity_OnCollidedWith(object sender, CollisionEventArgs e)
+        {
+            if (e.Caller is PlayerEntity)
+            {
+                if (toTransport == Program.SecondScene)
+                    toTransport.Terrain.Add(e.Caller, new Vector(12, 12));
+                else
+                {
+                    toTransport.Terrain.Add(e.Caller, new Vector(18, 18));
+                    the_door.IsLocked = true;
+                }
+
+                GameLoop.NavigateScene(toTransport);
+                ParentScene.Terrain.Remove(e.Caller);
+            }
+
+            e.Cancel = true;
+        }
+    }
 }

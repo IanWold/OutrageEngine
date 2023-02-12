@@ -1,20 +1,25 @@
-﻿namespace Outrage
+﻿namespace OutrageEngine.Engine.Terrain
 {
-	/// <summary>
-	/// A terrain manager keeps track of entities in a field (terrain).
-	/// </summary>
-	public interface ITerrainManager : IUpdatable
-	{
-		void Add(IEntity toAdd, Vector location);
+    using OutrageEngine.Engine.Entity;
+    using OutrageEngine.Engine.Scene;
+    using OutrageEngine.Interfaces;
+    using OutrageEngine.Vector;
 
-		void Move(IEntity toMove, Vector location);
+    /// <summary>
+    /// A terrain manager keeps track of entities in a field (terrain).
+    /// </summary>
+    public interface ITerrainManager : IUpdatable
+    {
+        TerrainSpot this[int x, int y] { get; }
 
-		void Remove(IEntity toRemove);
+        IScene ParentScene { get; set; }
 
-		void Clear();
+        void Add(IEntity toAdd, Vector location);
 
-		TerrainSpot this[int x, int y] { get; }
+        void Move(IEntity toMove, Vector location);
 
-		IScene ParentScene { get; set; }
-	}
+        void Remove(IEntity toRemove);
+
+        void Clear();
+    }
 }

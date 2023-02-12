@@ -1,38 +1,37 @@
-﻿using Outrage;
-
-namespace OutrageTest
+﻿namespace OutrageTest.Entities.Building
 {
-	class DoorEntity : SingleEntity
-	{
-		bool _IsLocked = true;
-		public bool IsLocked
-		{
-			get
-			{
-				return _IsLocked;
-			}
-			set
-			{
-				_IsLocked = value;
-				Display = value ? '_' : '/';
-			}
-		}
+    using OutrageEngine.Engine.Entity;
+    using OutrageEngine.EventHandlers;
+    using OutrageTest.Entities.Player;
 
-		public DoorEntity()
-		{
-			Display = '_';
-			OnCollidedWith += DoorEntity_OnCollidedWith;
-		}
+    internal sealed class DoorEntity : SingleEntity
+    {
+        private bool _IsLocked = true;
 
+        public DoorEntity()
+        {
+            Display = '_';
+            OnCollidedWith += DoorEntity_OnCollidedWith;
+        }
 
-		private void DoorEntity_OnCollidedWith(object sender, CollisionEventArgs e)
-		{
-			if (e.Caller.GetType() == typeof(PlayerEntity) && MainPlayer.InventoryHasKey)
-			{
-				IsLocked = false;
-			}
+        public bool IsLocked
+        {
+            get { return _IsLocked; }
+            set
+            {
+                _IsLocked = value;
+                Display = value ? '_' : '/';
+            }
+        }
 
-			e.Cancel = IsLocked;
-		}
-	}
+        private void DoorEntity_OnCollidedWith(object sender, CollisionEventArgs e)
+        {
+            if (e.Caller is PlayerEntity && MainPlayer.InventoryHasKey)
+            {
+                IsLocked = false;
+            }
+
+            e.Cancel = IsLocked;
+        }
+    }
 }

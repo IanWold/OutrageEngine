@@ -1,22 +1,14 @@
-﻿using System.Collections.Generic;
-using Outrage;
-
-namespace OutrageTest
+﻿namespace OutrageTest
 {
-	public static class MainPlayer
-	{
-		public static List<SingleEntity> Inventory = new List<SingleEntity>();
+    using System.Collections.Generic;
+    using System.Linq;
+    using OutrageEngine.Engine.Entity;
+    using OutrageTest.Entities.Inventory;
 
-		public static bool InventoryHasKey
-		{
-			get
-			{
-				foreach (var i in Inventory)
-				{
-					if (i.GetType() == typeof(KeyItem)) return true;
-				}
-				return false;
-			}
-		}
-	}
+    public static class MainPlayer
+    {
+        public static readonly List<SingleEntity> Inventory = new();
+
+        public static bool InventoryHasKey => Inventory.OfType<KeyItem>().Any();
+    }
 }

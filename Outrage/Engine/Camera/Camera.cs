@@ -1,43 +1,46 @@
-﻿namespace Outrage
+﻿namespace OutrageEngine.Engine.Camera
 {
-	/// <summary>
-	/// The camera 'views' a certain section of a terrain within a scene, maintaining a constant output size for the console.
-	/// </summary>
-	public class Camera
-	{
-		public IScene Parent { get; set; }
+    using OutrageEngine.Engine.Scene;
+    using OutrageEngine.Vector;
 
-		public Vector Position { get; set; }
+    /// <summary>
+    /// The camera 'views' a certain section of a terrain within a scene, maintaining a constant output size for the console.
+    /// </summary>
+    public class Camera
+    {
+        public Camera(Vector postition, Vector scope)
+        {
+            Position = postition;
+            Scope = scope;
+        }
 
-		public Vector Scope { get; private set; }
+        public IScene Parent { get; set; }
 
-		public Camera(Vector postition, Vector scope)
-		{
-			Position = postition;
-			Scope = scope;
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns>The view of the scene for the loop</returns>
-		public string Write()
-		{
-			var toReturn = "";
+        public Vector Position { get; set; }
 
-			for (int y = Position.Y; y <= Scope.Y; y++)
-			{
-				var row = "";
+        public Vector Scope { get; private set; }
 
-				for (int x = Position.X; x <= Scope.X; x++)
-				{
-					row += Parent.Terrain[x, y].Write() + " ";
-				}
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns>The view of the scene for the loop</returns>
+        public string Write()
+        {
+            var toReturn = "";
 
-				toReturn += row + "\r\n";
-			}
+            for (var y = Position.Y; y <= Scope.Y; y++)
+            {
+                var row = "";
 
-			return toReturn;
-		}
-	}
+                for (var x = Position.X; x <= Scope.X; x++)
+                {
+                    row += Parent.Terrain[x, y].Write() + " ";
+                }
+
+                toReturn += row + "\r\n";
+            }
+
+            return toReturn;
+        }
+    }
 }

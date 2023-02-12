@@ -1,12 +1,16 @@
-﻿namespace Outrage
+﻿namespace OutrageEngine.Engine.Scene
 {
-	/// <summary>
-	///  A 'scene' has a terrain (with entities) and a camera
-	/// </summary>
-	public interface IScene : IViewable
-	{
-		Camera FieldCamera { get; set; }
+    using OutrageEngine.Engine.Camera;
+    using OutrageEngine.Engine.Terrain;
+    using OutrageEngine.Interfaces;
 
-		ITerrainManager Terrain { get; set; }
-	}
+    /// <summary>
+    ///  A 'scene' has a terrain (with entities) and a camera
+    /// </summary>
+    public interface IScene : IViewable
+    {
+        Camera FieldCamera { get; set; }
+
+        ITerrainManager Terrain { get; set; }
+    }
 }

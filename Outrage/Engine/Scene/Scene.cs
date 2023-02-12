@@ -1,86 +1,90 @@
-﻿namespace Outrage
+﻿namespace OutrageEngine.Engine.Scene
 {
-	/// <summary>
-	/// A generic scene can use any terrain manager and uses a camera to output the view of the scene to the console.
-	/// </summary>
-	public class Scene : IScene
-	{
-		ITerrainManager _Terrain;
-		public ITerrainManager Terrain
-		{
-			get
-			{
-				return _Terrain;
-			}
-			set
-			{
-				_Terrain = value;
-				_Terrain.ParentScene = this;
-			}
-		}
+    using OutrageEngine.Engine.Camera;
+    using OutrageEngine.Engine.Entity;
+    using OutrageEngine.Engine.Terrain;
+    using OutrageEngine.EventHandlers;
+    using OutrageEngine.Vector;
 
-		Camera _FieldCamera;
-		public Camera FieldCamera
-		{
-			get
-			{
-				return _FieldCamera;
-			}
-			set
-			{
-				_FieldCamera = value;
-				_FieldCamera.Parent = this;
-			}
-		}
+    /// <summary>
+    /// A generic scene can use any terrain manager and uses a camera to output the view of the scene to the console.
+    /// </summary>
+    public class Scene : IScene
+    {
+        public delegate void OnUpdateEventHandler(object sender, UpdateEventArgs e);
 
-		public string Name { get; }
+        Camera _FieldCamera;
 
-		public delegate void OnUpdateEventHandler(object sender, UpdateEventArgs e);
-		public event OnUpdateEventHandler OnUpdate;
+        ITerrainManager _Terrain;
 
-		public Scene(string name, ITerrainManager terrain, Camera fieldCamera)
-		{
-			Name = name;
-			Terrain = terrain;
-			FieldCamera = fieldCamera;
-		}
+        public Scene(string name, ITerrainManager terrain, Camera fieldCamera)
+        {
+            Name = name;
+            Terrain = terrain;
+            FieldCamera = fieldCamera;
+        }
 
-		/// <summary>
-		/// Writes a string on top of the scene
-		/// </summary>
-		/// <param name="toWrite">The text to write on the scene</param>
-		/// <param name="location">The location to write the text</param>
-		public void InsertString(string toWrite, Vector location)
-		{
-			foreach (var w in toWrite.Split('\n'))
-			{
-				var charArr = w.ToCharArray();
-				for (int i = 0; i < charArr.Length; i++)
-				{
-					Terrain.Add(new SingleEntity() { Display = charArr[i] }, new Vector(location.X + i, location.Y));
-				}
+        public string Name { get; }
 
-				location.Y++;
-			}
-		}
+        public ITerrainManager Terrain
+        {
+            get { return _Terrain; }
+            set
+            {
+                _Terrain = value;
+                _Terrain.ParentScene = this;
+            }
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns>The view of the scene for the loop</returns>
-		public string Write()
-		{
-			return FieldCamera.Write();
-		}
+        public Camera FieldCamera
+        {
+            get { return _FieldCamera; }
+            set
+            {
+                _FieldCamera = value;
+                _FieldCamera.Parent = this;
+            }
+        }
 
-		/// <summary>
-		/// Called once per 'frame'
-		/// </summary>
-		/// <param name="e">The state of the update</param>
-		public void Update(UpdateEventArgs e)
-		{
-			Terrain.Update(e);
-			if (OnUpdate != null) OnUpdate(this, e);
-		}
-	}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The view of the scene for the loop</returns>
+        public string Write()
+        {
+            return FieldCamera.Write();
+        }
+
+        /// <summary>
+        /// Called once per 'frame'
+        /// </summary>
+        /// <param name="e">The state of the update</param>
+        public void Update(UpdateEventArgs e)
+        {
+            Terrain.Update(e);
+            if (OnUpdate != null) OnUpdate(this, e);
+        }
+
+        public event OnUpdateEventHandler OnUpdate;
+
+        /// <summary>
+        /// Writes a string on top of the scene
+        /// </summary>
+        /// <param name="toWrite">The text to write on the scene</param>
+        /// <param name="location">The location to write the text</param>
+        public void InsertString(string toWrite, Vector location)
+        {
+            foreach (var w in toWrite.Split('\n'))
+            {
+                var charArr = w.ToCharArray();
+
+                for (var i = 0; i < charArr.Length; i++)
+                {
+                    Terrain.Add(new SingleEntity { Display = charArr[i], }, new Vector(location.X + i, location.Y));
+                }
+
+                location.Y++;
+            }
+        }
+    }
 }

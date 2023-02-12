@@ -1,64 +1,72 @@
-﻿using System.Collections.Generic;
-
-namespace Outrage
+﻿namespace OutrageEngine.Engine.Entity
 {
-	public class CompositionEntity : IEntity
-	{
-		public List<IEntity> Children { get; set; }
+    using System.Collections.Generic;
+    using OutrageEngine.Engine.Scene;
+    using OutrageEngine.EventHandlers;
+    using OutrageEngine.Vector;
 
-		public IScene ParentScene { get; set; }
+    public class CompositionEntity : IEntity
+    {
+        public delegate void CollidedWithEventHandler(object sender, CollisionEventArgs e);
 
-		public Vector Position { get; set; }
+        public delegate void EntityAppearedEventHandler(object sender, CollisionEventArgs e);
 
-		public delegate void OnUpdateEventHandler(UpdateEventArgs e);
-		public event OnUpdateEventHandler OnUpdate;
+        public delegate void OnUpdateEventHandler(UpdateEventArgs e);
 
-		public delegate void CollidedWithEventHandler(object sender, CollisionEventArgs e);
-		public event CollidedWithEventHandler OnCollidedWith;
+        public List<IEntity> Children { get; set; }
 
-		public delegate void EntityAppearedEventHandler(object sender, CollisionEventArgs e);
-		public event EntityAppearedEventHandler OnEntityAppeared;
+        public IScene ParentScene { get; set; }
 
-		/// <summary>
-		/// Called when two entities run into each other
-		/// </summary>
-		/// <param name="e">The state of the collision</param>
-		/// <returns>True if the collision is canceled</returns>
-		public bool CollideWith(CollisionEventArgs e)
-		{
-			if (OnCollidedWith == null) return false;
+        public Vector Position { get; set; }
 
-			OnCollidedWith(this, e);
-			return e.Cancel;
-		}
+        /// <summary>
+        /// Called when two entities run into each other
+        /// </summary>
+        /// <param name="e">The state of the collision</param>
+        /// <returns>True if the collision is canceled</returns>
+        public bool CollideWith(CollisionEventArgs e)
+        {
+            if (OnCollidedWith == null) return false;
 
-		/// <summary>
-		/// Called when an entity appears atop this entity.
-		/// Effectively a collision
-		/// </summary>
-		/// <param name="e">The state of the collision</param>
-		/// <returns>True if the collision is canceled</returns>
-		public bool AppearEntity(CollisionEventArgs e)
-		{
-			if (OnEntityAppeared == null) return false;
+            OnCollidedWith(this, e);
 
-			OnEntityAppeared(this, e);
-			return e.Cancel;
-		}
+            return e.Cancel;
+        }
 
-		/// <summary>
-		/// Updates once per 'frame'
-		/// </summary>
-		/// <param name="e">The state of the update.</param>
-		public void Update(UpdateEventArgs e)
-		{
-			if (OnUpdate == null) return;
-			OnUpdate(e);
+        /// <summary>
+        /// Called when an entity appears atop this entity.
+        /// Effectively a collision
+        /// </summary>
+        /// <param name="e">The state of the collision</param>
+        /// <returns>True if the collision is canceled</returns>
+        public bool AppearEntity(CollisionEventArgs e)
+        {
+            if (OnEntityAppeared == null) return false;
 
-			foreach (var c in Children)
-			{
-				c.Update(e);
-			}
-		}
-	}
+            OnEntityAppeared(this, e);
+
+            return e.Cancel;
+        }
+
+        /// <summary>
+        /// Updates once per 'frame'
+        /// </summary>
+        /// <param name="e">The state of the update.</param>
+        public void Update(UpdateEventArgs e)
+        {
+            if (OnUpdate == null) return;
+            OnUpdate(e);
+
+            foreach (var c in Children)
+            {
+                c.Update(e);
+            }
+        }
+
+        public event OnUpdateEventHandler OnUpdate;
+
+        public event CollidedWithEventHandler OnCollidedWith;
+
+        public event EntityAppearedEventHandler OnEntityAppeared;
+    }
 }

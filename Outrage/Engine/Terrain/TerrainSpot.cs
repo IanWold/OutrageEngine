@@ -1,29 +1,31 @@
-﻿using System.Collections.Generic;
-
-namespace Outrage
+﻿namespace OutrageEngine.Engine.Terrain
 {
-	/// <summary>
-	/// A single character on the screen.
-	/// Used by DictionaryTerrainManager.
-	/// </summary>
-	public class TerrainSpot : IWriteable
-	{
-		public List<SingleEntity> Occupants { get; set; }
+    using System.Collections.Generic;
+    using OutrageEngine.Engine.Entity;
+    using OutrageEngine.Interfaces;
 
-		public TerrainSpot()
-		{
-			Occupants = new List<SingleEntity>();
-		}
+    /// <summary>
+    /// A single character on the screen.
+    /// Used by DictionaryTerrainManager.
+    /// </summary>
+    public sealed class TerrainSpot : IWriteable
+    {
+        public TerrainSpot()
+        {
+            Occupants = new List<SingleEntity>();
+        }
 
-		public TerrainSpot(SingleEntity first)
-		{
-			Occupants = new List<SingleEntity>();
-			Occupants.Add(first);
-		}
+        public TerrainSpot(SingleEntity first)
+        {
+            Occupants = new List<SingleEntity>();
+            Occupants.Add(first);
+        }
 
-		public string Write()
-		{
-			return Occupants[Occupants.Count - 1].Display.ToString();
-		}
-	}
+        public List<SingleEntity> Occupants { get; set; }
+
+        public string Write()
+        {
+            return Occupants[Occupants.Count - 1].Display.ToString();
+        }
+    }
 }

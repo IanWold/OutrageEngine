@@ -1,248 +1,258 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Outrage
+﻿namespace OutrageEngine.Engine.Terrain
 {
-	/// <summary>
-	/// A terrain manager that stores entities in a 2D dictionary.
-	/// spots on the terrain can hold multiple entities, this manager keeps track of all of them
-	/// </summary>
-	public class DictionaryTerrainManager : ITerrainManager
-	{
-		Dictionary<Vector, TerrainSpot> Field { get; set; }
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using OutrageEngine.Engine.Entity;
+    using OutrageEngine.Engine.Scene;
+    using OutrageEngine.EventHandlers;
+    using OutrageEngine.Vector;
 
-		IScene _ParentScene;
-		public IScene ParentScene
-		{
-			get
-			{
-				return _ParentScene;
-			}
-			set
-			{
-				_ParentScene = value;
-				foreach (var k in Field)
-				{
-					foreach (var o in k.Value.Occupants)
-					{
-						o.ParentScene = _ParentScene;
-					}
-				}
-			}
-		}
+    /// <summary>
+    ///     A terrain manager that stores entities in a 2D dictionary.
+    ///     spots on the terrain can hold multiple entities, this manager keeps track of all of them
+    /// </summary>
+    public class DictionaryTerrainManager : ITerrainManager
+    {
+        private IScene _ParentScene;
 
-		public char EmptyDisplay { get; set; }
+        public DictionaryTerrainManager(char emptyDisplay, Vector size)
+        {
+            Field = new Dictionary<Vector, TerrainSpot>();
 
-		public Vector Size { get; private set; }
+            EmptyDisplay = emptyDisplay;
+            Size = size;
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="x">The horizontal position</param>
-		/// <param name="y">The vertical position</param>
-		/// <returns>The TerrainSpot at x and y</returns>
-		public TerrainSpot this[int x, int y]
-		{
-			get
-			{
-				if (x > Size.X || x < 0 || y > Size.Y || y < 0)
-				{
-					throw new ArgumentOutOfRangeException("Not cool.");
-				}
+        private Dictionary<Vector, TerrainSpot> Field { get; }
 
-				var key = new Vector(x, y);
-				TerrainSpot outSpot;
-				if (Field.TryGetValue(key, out outSpot))
-				{
-					return outSpot;
-				}
-				else return new TerrainSpot(new SingleEntity() { Display = EmptyDisplay, Position = new Vector(x, y) });
-			}
-			private set
-			{
-				if (x > Size.X || x < 0 || y > Size.Y || y < 0)
-				{
-					throw new ArgumentOutOfRangeException("Not cool.");
-				}
+        public char EmptyDisplay { get; set; }
 
-				var key = new Vector(x, y);
+        public Vector Size { get; }
 
-				if (Field.ContainsKey(key))
-				{
-					Field[key] = value;
-				}
-			}
-		}
+        public IScene ParentScene
+        {
+            get => _ParentScene;
+            set
+            {
+                _ParentScene = value;
 
-		/// <summary>
-		/// Removes an entity from the terrain.
-		/// </summary>
-		/// <param name="other">The entity to remove.</param>
-		public void Remove(IEntity other)
-		{
-			if (!(other is SingleEntity))
-			{
-				throw new NotImplementedException("Non-single entities not implemented");
-			}
+                foreach (var k in Field)
+                {
+                    foreach (var o in k.Value.Occupants)
+                    {
+                        o.ParentScene = _ParentScene;
+                    }
+                }
+            }
+        }
 
-			var toRemove = from spot in Field
-						   from ent in spot.Value.Occupants
-						   where ent == other
-						   select spot;
+        /// <summary>
+        /// </summary>
+        /// <param name="x">The horizontal position</param>
+        /// <param name="y">The vertical position</param>
+        /// <returns>The TerrainSpot at x and y</returns>
+        public TerrainSpot this[int x, int y]
+        {
+            get
+            {
+                if (x > Size.X || x < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(x), "Not cool.");
+                }
 
-			foreach (var s in toRemove)
-			{
-				s.Value.Occupants.Remove((SingleEntity)other);
+                if (y > Size.Y || y < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(y), "Not cool.");
+                }
 
-				if (s.Value.Occupants.Count == 0)
-				{
-					Field.Remove(s.Key);
-				}
-			}
-		}
+                var key = new Vector(x, y);
+                TerrainSpot outSpot;
 
-		public DictionaryTerrainManager(char emptyDisplay, Vector size)
-		{
-			Field = new Dictionary<Vector, TerrainSpot>();
+                return Field.TryGetValue(key, out outSpot)
+                    ? outSpot
+                    : new TerrainSpot(new SingleEntity { Display = EmptyDisplay, Position = new Vector(x, y), });
+            }
+            private set
+            {
+                if (x > Size.X || x < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(x), "Not cool.");
+                }
 
-			EmptyDisplay = emptyDisplay;
-			Size = size;
-		}
+                if (y > Size.Y || y < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(y), "Not cool.");
+                }
 
-		/// <summary>
-		/// Adds an entity to the terrain
-		/// </summary>
-		/// <param name="toAdd">The entity to add</param>
-		/// <param name="location">The location to add at</param>
-		public void Add(IEntity toAdd, Vector location)
-		{
-			if (toAdd is CompositionEntity)
-			{
-				foreach (SingleEntity c in ((CompositionEntity)toAdd).Children)
-				{
-					Insert(c, location + c.Position, false);
-				}
-			}
-			else
-			{
-				Insert((SingleEntity)toAdd, location, false);
-			}
-		}
+                var key = new Vector(x, y);
 
-		/// <summary>
-		/// Moves one entity from one spot to another
-		/// </summary>
-		/// <param name="toMove">The entity to move</param>
-		/// <param name="location">The location to move to</param>
-		public void Move(IEntity toMove, Vector location)
-		{
-			if (!(toMove is SingleEntity))
-			{
-				throw new NotImplementedException("Non-single entities not implemented");
-			}
+                if (Field.ContainsKey(key))
+                {
+                    Field[key] = value;
+                }
+            }
+        }
 
-			Insert((SingleEntity)toMove, location, true);
-		}
+        /// <summary>
+        ///     Removes an entity from the terrain.
+        /// </summary>
+        /// <param name="other">The entity to remove.</param>
+        public void Remove(IEntity other)
+        {
+            if (!(other is SingleEntity))
+            {
+                throw new NotImplementedException("Non-single entities not implemented");
+            }
 
-		/// <summary>
-		/// Inserts an entity at a spot on the terrain. Used by Add and Move.
-		/// </summary>
-		/// <param name="toInsert">The entity to insert</param>
-		/// <param name="location">The location to insert at</param>
-		/// <param name="removeOldInstance">True if Insert should delete an existing occurrence of toInsert in the terrain</param>
-		void Insert(SingleEntity toInsert, Vector location, bool removeOldInstance)
-		{
-			try
-			{
-				if (location.X < 0 || location.Y < 0 || location.X > Size.X || location.Y > Size.Y) return;
+            var toRemove = from spot in Field
+                from ent in spot.Value.Occupants
+                where ent == other
+                select spot;
 
-				TerrainSpot oldSpot;
-				TerrainSpot newSpot;
+            foreach (var s in toRemove)
+            {
+                s.Value.Occupants.Remove((SingleEntity)other);
 
-				if (Field.TryGetValue(location, out newSpot))
-				{
-					bool allowed = true;
+                if (s.Value.Occupants.Count == 0)
+                {
+                    Field.Remove(s.Key);
+                }
+            }
+        }
 
-					foreach (var o in newSpot.Occupants)
-					{
-						var callee = o.CollideWith(new CollisionEventArgs(toInsert, location));
-						var caller = toInsert.CollideWith(new CollisionEventArgs(o, location));
-						allowed = !callee && !caller;
-						if (!allowed) break;
-					}
+        /// <summary>
+        ///     Adds an entity to the terrain
+        /// </summary>
+        /// <param name="toAdd">The entity to add</param>
+        /// <param name="location">The location to add at</param>
+        public void Add(IEntity toAdd, Vector location)
+        {
+            if (toAdd is CompositionEntity entity)
+            {
+                foreach (var c in entity.Children.Cast<SingleEntity>())
+                {
+                    Insert(c, location + c.Position, false);
+                }
+            }
+            else
+            {
+                Insert((SingleEntity)toAdd, location, false);
+            }
+        }
 
-					if (allowed)
-					{
-						if (removeOldInstance)
-						{
-							Field.TryGetValue(toInsert.Position, out oldSpot);
-							oldSpot.Occupants.Remove(toInsert);
+        /// <summary>
+        ///     Moves one entity from one spot to another
+        /// </summary>
+        /// <param name="toMove">The entity to move</param>
+        /// <param name="location">The location to move to</param>
+        public void Move(IEntity toMove, Vector location)
+        {
+            if (!(toMove is SingleEntity))
+            {
+                throw new NotImplementedException("Non-single entities not implemented");
+            }
 
-							if (oldSpot.Occupants.Count == 0)
-							{
-								Field.Remove(toInsert.Position);
-							}
-						}
+            Insert((SingleEntity)toMove, location, true);
+        }
 
-						toInsert.Position = location;
-						newSpot.Occupants.Add(toInsert);
-					}
-				}
-				else
-				{
-					if (removeOldInstance)
-					{
-						Field.TryGetValue(toInsert.Position, out oldSpot);
-						oldSpot.Occupants.Remove(toInsert);
+        /// <summary>
+        ///     Deletes everything in the terrain.
+        /// </summary>
+        public void Clear()
+        {
+            Field.Clear();
+        }
 
-						if (oldSpot.Occupants.Count == 0)
-						{
-							Field.Remove(toInsert.Position);
-						}
-					}
+        /// <summary>
+        ///     Called once per 'frame'
+        /// </summary>
+        /// <param name="args">The state of the update</param>
+        public void Update(UpdateEventArgs args)
+        {
+            var entities = new List<IEntity>();
 
-					toInsert.Position = location;
-					Field.Add(location, new TerrainSpot(toInsert));
-				}
+            try
+            {
+                entities.AddRange(Field.SelectMany(s => s.Value.Occupants));
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
 
-				toInsert.ParentScene = ParentScene;
-			}
-			catch (Exception)
-			{
+            foreach (var e in entities)
+                e.Update(args);
+        }
 
-			}
-		}
+        /// <summary>
+        ///     Inserts an entity at a spot on the terrain. Used by Add and Move.
+        /// </summary>
+        /// <param name="toInsert">The entity to insert</param>
+        /// <param name="location">The location to insert at</param>
+        /// <param name="removeOldInstance">True if Insert should delete an existing occurrence of toInsert in the terrain</param>
+        private void Insert(SingleEntity toInsert, Vector location, bool removeOldInstance)
+        {
+            try
+            {
+                if (location.X < 0 || location.Y < 0 || location.X > Size.X || location.Y > Size.Y) return;
 
-		/// <summary>
-		/// Deletes everything in the terrain.
-		/// </summary>
-		public void Clear()
-		{
-			Field.Clear();
-		}
+                TerrainSpot oldSpot;
+                TerrainSpot newSpot;
 
-		/// <summary>
-		/// Called once per 'frame'
-		/// </summary>
-		/// <param name="args">The state of the update</param>
-		public void Update(UpdateEventArgs args)
-		{
-			List<IEntity> entities = new List<IEntity>();
+                if (Field.TryGetValue(location, out newSpot))
+                {
+                    var allowed = true;
 
-			try
-			{
-				foreach (var s in Field)
-					foreach (var e in s.Value.Occupants)
-						entities.Add(e);
-			}
-			catch (Exception)
-			{
+                    foreach (var o in newSpot.Occupants)
+                    {
+                        var callee = o.CollideWith(new CollisionEventArgs(toInsert, location));
+                        var caller = toInsert.CollideWith(new CollisionEventArgs(o, location));
+                        allowed = !callee && !caller;
 
-			}
+                        if (!allowed) break;
+                    }
 
-			foreach (var e in entities)
-				e.Update(args);
-		}
-	}
+                    if (allowed)
+                    {
+                        if (removeOldInstance)
+                        {
+                            Field.TryGetValue(toInsert.Position, out oldSpot);
+                            oldSpot.Occupants.Remove(toInsert);
+
+                            if (oldSpot.Occupants.Count == 0)
+                            {
+                                Field.Remove(toInsert.Position);
+                            }
+                        }
+
+                        toInsert.Position = location;
+                        newSpot.Occupants.Add(toInsert);
+                    }
+                }
+                else
+                {
+                    if (removeOldInstance)
+                    {
+                        Field.TryGetValue(toInsert.Position, out oldSpot);
+                        oldSpot.Occupants.Remove(toInsert);
+
+                        if (oldSpot.Occupants.Count == 0)
+                        {
+                            Field.Remove(toInsert.Position);
+                        }
+                    }
+
+                    toInsert.Position = location;
+                    Field.Add(location, new TerrainSpot(toInsert));
+                }
+
+                toInsert.ParentScene = ParentScene;
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
+    }
 }
